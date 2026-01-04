@@ -1,3 +1,4 @@
+import org.gradle.kotlin.dsl.implementation
 import org.jetbrains.compose.desktop.application.dsl.TargetFormat
 import org.jetbrains.kotlin.gradle.dsl.JvmTarget
 
@@ -19,6 +20,9 @@ kotlin {
         androidMain.dependencies {
             implementation(compose.preview)
             implementation(libs.androidx.activity.compose)
+            implementation("com.github.montes8:uivalulibrary:1.0.0")
+            implementation("androidx.navigation:navigation-compose:2.9.6")
+            implementation("com.google.android.play:app-update-ktx:2.1.0")
         }
         commonMain.dependencies {
             implementation(compose.runtime)
