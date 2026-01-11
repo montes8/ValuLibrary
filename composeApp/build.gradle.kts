@@ -21,6 +21,7 @@ kotlin {
             implementation("androidx.navigation:navigation-compose:2.9.6")
             implementation("com.google.android.play:app-update-ktx:2.1.0")
             implementation(libs.androidx.lifecycle.viewmodelCompose)
+            implementation("androidx.core:core-splashscreen:1.0.1")
             implementation(project(":mylibrary"))
 
         }
@@ -71,6 +72,7 @@ android {
 dependencies {
     debugImplementation(compose.uiTooling)
     implementation(libs.androidx.lifecycle.viewmodelCompose)
+    implementation("androidx.core:core-splashscreen:1.0.1")
 
 }
 

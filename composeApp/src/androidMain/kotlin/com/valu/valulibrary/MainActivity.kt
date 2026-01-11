@@ -17,6 +17,7 @@ import com.google.android.play.core.install.model.UpdateAvailability
 import com.valu.valulibrary.ui.AppViewModel
 import com.valu.valulibrary.ui.nav.ValeNavigation
 import com.valu.valulibrary.utils.ValeTheme
+import com.valu.valulibrary.utils.ValeThemeSplash
 
 class MainActivity : ComponentActivity() {
 

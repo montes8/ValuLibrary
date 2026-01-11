@@ -11,10 +11,8 @@ import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
-import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.offset
 import androidx.compose.foundation.layout.padding
-import androidx.compose.foundation.layout.width
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
@@ -33,15 +31,14 @@ import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
-import com.valu.valulibrary.ui.AppViewModel
-import kotlinx.coroutines.flow.collectLatest
-import com.valu.valulibrary.R
-import com.valu.valulibrary.utils.TypographySubTitleGabbi
-import com.valu.valulibrary.utils.TypographyTitleBold
-import androidx.lifecycle.viewmodel.compose.viewModel
 import androidx.navigation.NavController
 import androidx.navigation.compose.rememberNavController
+import com.valu.valulibrary.R
+import com.valu.valulibrary.ui.AppViewModel
 import com.valu.valulibrary.ui.nav.ScreenVale
+import com.valu.valulibrary.utils.TypographySubTitleGabbi
+import com.valu.valulibrary.utils.TypographyTitleBold
+import kotlinx.coroutines.flow.collectLatest
 
 @Composable
 fun ScreenSplash(viewModel: AppViewModel, navController: NavController = rememberNavController()) {
