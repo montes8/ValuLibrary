@@ -87,7 +87,7 @@ fun ScreenSplash(viewModel: AppViewModel, navController: NavController = remembe
         modifier = Modifier
             .fillMaxSize()
             .paint(
-                painterResource(id = R.drawable.background_splash), contentScale
+                painterResource(id = R.drawable.ic_bc_splash), contentScale
                 = ContentScale.FillBounds
             ),
         verticalArrangement = Arrangement.Center,
@@ -110,10 +110,7 @@ fun ScreenSplash(viewModel: AppViewModel, navController: NavController = remembe
 
         Box( modifier = Modifier
             .offset(y = offset)
-            .graphicsLayer()) {
-            //AnimatedLotti(modifier = Modifier.width(250.dp).height(200.dp).align(Alignment.Center))
-
-        }
+            .graphicsLayer())
 
         Column(modifier = Modifier
             .offset(y = offsetBottom)
@@ -121,7 +118,7 @@ fun ScreenSplash(viewModel: AppViewModel, navController: NavController = remembe
             Text(
                 text = stringResource(R.string.text_title_splash),
                 textAlign = TextAlign.Center,
-                style = TypographyTitleBold.titleLarge,
+                style = TypographyTitleBold.titleSmall,
                 color = colorResource(R.color.primary_Accent)
             )
             Text(
@@ -129,7 +126,7 @@ fun ScreenSplash(viewModel: AppViewModel, navController: NavController = remembe
                 color = colorResource(R.color.primary_Accent),
                 text = stringResource(R.string.text_sub_title_splash),
                 textAlign = TextAlign.Center,
-                style = TypographyTitleBold.titleLarge,
+                style = TypographyTitleBold.titleMedium,
 
                 )
         }
