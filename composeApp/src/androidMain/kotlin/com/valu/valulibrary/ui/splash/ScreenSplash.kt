@@ -1,4 +1,4 @@
-package com.valu.valulibrary.ui
+package com.valu.valulibrary.ui.splash
 
 import android.os.Handler
 import android.os.Looper
@@ -33,10 +33,18 @@ import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
+import com.valu.valulibrary.ui.AppViewModel
 import kotlinx.coroutines.flow.collectLatest
+import com.valu.valulibrary.R
+import com.valu.valulibrary.utils.TypographySubTitleGabbi
+import com.valu.valulibrary.utils.TypographyTitleBold
+import androidx.lifecycle.viewmodel.compose.viewModel
+import androidx.navigation.NavController
+import androidx.navigation.compose.rememberNavController
+import com.valu.valulibrary.ui.nav.ScreenVale
 
 @Composable
-fun ScreenSplash(navController: NavController = rememberNavController()) {
+fun ScreenSplash(viewModel: AppViewModel, navController: NavController = rememberNavController()) {
 
     var animLotti by remember { mutableStateOf(false) }
     var animText by remember { mutableStateOf(false) }
@@ -67,7 +75,7 @@ fun ScreenSplash(navController: NavController = rememberNavController()) {
     LaunchedEffect(key1 = true) {
         viewModel.eventFlow.collectLatest { event ->
             if (event is InitUiEvent.NavigateToNext) {
-                navController.navigate(Screen.HomeScreen.route){
+                navController.navigate(ScreenVale.ScreenHome.route){
                     launchSingleTop = true
                 }
             }
@@ -89,7 +97,7 @@ fun ScreenSplash(navController: NavController = rememberNavController()) {
             modifier = Modifier
                 .fillMaxWidth().padding(end = 16.dp),
             color = Color.Black,
-            text = BuildConfig.VERSION_NAME,
+            text = "version 1.0",
             textAlign = TextAlign.End,
             style = TypographySubTitleGabbi.labelSmall,
 
@@ -103,7 +111,8 @@ fun ScreenSplash(navController: NavController = rememberNavController()) {
         Box( modifier = Modifier
             .offset(y = offset)
             .graphicsLayer()) {
-            AnimatedLotti(modifier = Modifier.width(250.dp).height(200.dp).align(Alignment.Center))
+            //AnimatedLotti(modifier = Modifier.width(250.dp).height(200.dp).align(Alignment.Center))
+
         }
 
         Column(modifier = Modifier

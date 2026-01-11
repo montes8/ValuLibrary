@@ -20,6 +20,7 @@ import androidx.compose.ui.text.font.FontFamily
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 
+/*
 @Composable
 fun UiValeCToolBar(uiTayText : String = "",
                   uiTayModifier : UiTayToolBarModel = UiTayToolBarModel(),
@@ -60,24 +61,4 @@ fun UiValeCToolBar(uiTayText : String = "",
     }
 }
 
-@Composable
-fun AnimatedLotti(modifier: Modifier = Modifier) {
-    val preLoaderLottieComposition by rememberLottieComposition(
-        LottieCompositionSpec.RawRes(
-            R.raw.music
-        )
-    )
-
-    val preLoaderProgress by animateLottieCompositionAsState(
-        preLoaderLottieComposition,
-        iterations = LottieConstants.IterateForever,
-        isPlaying = true
-    )
-
-
-    LottieAnimation(
-        composition = preLoaderLottieComposition,
-        progress = preLoaderProgress,
-        modifier = modifier
-    )
-}
+*/

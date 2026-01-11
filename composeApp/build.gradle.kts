@@ -1,5 +1,3 @@
-import org.gradle.kotlin.dsl.implementation
-import org.jetbrains.compose.desktop.application.dsl.TargetFormat
 import org.jetbrains.kotlin.gradle.dsl.JvmTarget
 
 plugins {
@@ -12,7 +10,7 @@ plugins {
 kotlin {
     androidTarget {
         compilerOptions {
-            jvmTarget.set(JvmTarget.JVM_11)
+            jvmTarget.set(JvmTarget.JVM_17)
         }
     }
 
@@ -20,9 +18,11 @@ kotlin {
         androidMain.dependencies {
             implementation(compose.preview)
             implementation(libs.androidx.activity.compose)
-            implementation("com.github.montes8:uivalulibrary:1.0.0")
             implementation("androidx.navigation:navigation-compose:2.9.6")
             implementation("com.google.android.play:app-update-ktx:2.1.0")
+            implementation(libs.androidx.lifecycle.viewmodelCompose)
+            implementation(project(":mylibrary"))
+
         }
         commonMain.dependencies {
             implementation(compose.runtime)
@@ -63,12 +63,14 @@ android {
         }
     }
     compileOptions {
-        sourceCompatibility = JavaVersion.VERSION_11
-        targetCompatibility = JavaVersion.VERSION_11
+        sourceCompatibility = JavaVersion.VERSION_17
+        targetCompatibility = JavaVersion.VERSION_17
     }
 }
 
 dependencies {
     debugImplementation(compose.uiTooling)
+    implementation(libs.androidx.lifecycle.viewmodelCompose)
+
 }
 

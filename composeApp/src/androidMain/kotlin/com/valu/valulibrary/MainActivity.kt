@@ -1,25 +1,27 @@
 package com.valu.valulibrary
 
-import android.content.Intent
-import android.os.Build
 import android.os.Bundle
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
 import androidx.activity.enableEdgeToEdge
-import androidx.annotation.RequiresApi
 import androidx.compose.material3.Scaffold
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.tooling.preview.Preview
+import com.gb.vale.uitaylibrarycompose.extra.UiTayCToolBar
+import com.gb.vale.uitaylibrarycompose.model.UiTayToolBarModel
 import com.google.android.play.core.appupdate.AppUpdateManagerFactory
 import com.google.android.play.core.appupdate.AppUpdateOptions
 import com.google.android.play.core.install.model.AppUpdateType
 import com.google.android.play.core.install.model.UpdateAvailability
+import com.valu.valulibrary.ui.AppViewModel
+import com.valu.valulibrary.ui.nav.ValeNavigation
+import com.valu.valulibrary.utils.ValeTheme
 
 class MainActivity : ComponentActivity() {
 
     private val updateOptions = AppUpdateOptions.newBuilder(AppUpdateType.IMMEDIATE).build()
-
+    var viewModel: AppViewModel = AppViewModel()
     companion object {
         private const val UPDATE_CODE = 10001
     }
@@ -29,11 +31,10 @@ class MainActivity : ComponentActivity() {
         super.onCreate(savedInstanceState)
 
         setContent {
-            App()
+            validateVersionUpdate()
         }
     }
 
-    @RequiresApi(Build.VERSION_CODES.TIRAMISU)
     private fun validateVersionUpdate() {
         val appUpdateManager = AppUpdateManagerFactory.create(this)
         val appUpdateInfoTask = appUpdateManager.appUpdateInfo
@@ -60,23 +61,15 @@ class MainActivity : ComponentActivity() {
 
     private fun configInit(){
         setContent {
-            PlayValuTheme {
+            ValeTheme {
                 Scaffold(topBar = {
                     if(viewModel.visibleToolbar){
-                        UiTayCToolBar(uiTayText = stringResource(R.string.tb_title_home), uiTayModifier = UiTayToolBarModel(
-                            uTTypeEnd = true
-                        )) {
-                            MediaPlayerSingleton.positionMusic =  viewModel.uiStatePosition
-                            MediaPlayerSingleton.positionDurationMusic = MediaPlayerSingleton.playCurrentPosition()
-                            PermissionManager.checkOverlayPermission(this) {
-                                startService(Intent(this, MusicService::class.java))
-                                MediaPlayerSingleton.playStop()
-                                finish()
-                            }
+                        UiTayCToolBar(uiTayText = stringResource(R.string.tb_title_home), uiTayModifier = UiTayToolBarModel()) {
+
                         }
                     }
                 }, content = { paddingValues ->
-                    Navigation(viewModel,paddingValues)
+                    ValeNavigation(viewModel,paddingValues)
                 })
 
             }
