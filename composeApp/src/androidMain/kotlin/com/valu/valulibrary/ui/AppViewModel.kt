@@ -17,7 +17,7 @@ class AppViewModel():BaseViewModel() {
 
     fun loadValidateLogin(){
         execute {
-            delay(4000)
+            delay(6000)
             _eventFlow.emit(InitUiEvent.NavigateToNext())
         }
     }

@@ -8,6 +8,7 @@ plugins {
 }
 
 kotlin {
+    @Suppress("DEPRECATION")
     androidTarget {
         compilerOptions {
             jvmTarget.set(JvmTarget.JVM_17)
@@ -21,7 +22,11 @@ kotlin {
             implementation("androidx.navigation:navigation-compose:2.9.6")
             implementation("com.google.android.play:app-update-ktx:2.1.0")
             implementation(libs.androidx.lifecycle.viewmodelCompose)
-            implementation("androidx.core:core-splashscreen:1.0.1")
+            implementation(libs.koin.compose)
+            implementation(libs.koin.android)
+            implementation("io.insert-koin:koin-compose-viewmodel:4.0.0")
+            implementation("com.google.android.material:material:1.12.0")
+            implementation("com.pierfrancescosoffritti.androidyoutubeplayer:core:12.1.0")
             implementation(project(":mylibrary"))
 
         }
@@ -71,8 +76,6 @@ android {
 
 dependencies {
     debugImplementation(compose.uiTooling)
-    implementation(libs.androidx.lifecycle.viewmodelCompose)
-    implementation("androidx.core:core-splashscreen:1.0.1")
 
 }
 

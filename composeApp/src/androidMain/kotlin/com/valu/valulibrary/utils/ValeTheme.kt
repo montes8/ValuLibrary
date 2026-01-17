@@ -49,33 +49,3 @@ fun ValeTheme(
     )
 }
 
-@Composable
-fun ValeThemeSplash(
-    darkTheme: Boolean = isSystemInDarkTheme(),
-    dynamicColor: Boolean = true,
-    content: @Composable () -> Unit
-) {
-    val colorScheme = if (darkTheme) DarkColorScheme else LightColorScheme
-    val context = LocalView.current
-
-    if (!context.isInEditMode) {
-        SideEffect {
-            val window = (context.context as Activity).window
-
-            // Esto equivale a <item name="android:statusBarColor">
-            window.statusBarColor = Color.Transparent.toArgb() // O tu color primary_secondary
-
-            // Esto equivale a <item name="android:windowLightStatusBar">true</item>
-            WindowCompat.getInsetsController(window, context).isAppearanceLightStatusBars = !darkTheme
-
-            // Esto equivale a windowDrawsSystemBarBackgrounds y fitsSystemWindows
-            WindowCompat.setDecorFitsSystemWindows(window, false)
-        }
-    }
-
-    MaterialTheme(
-        colorScheme = colorScheme,
-        typography = Typography,
-        content = content
-    )
-}

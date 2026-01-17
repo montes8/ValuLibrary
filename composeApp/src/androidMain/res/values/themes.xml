@@ -1,22 +1,33 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources xmlns:tools="http://schemas.android.com/tools">
-    <style name="Theme.PlayVale" parent="android:Theme.Material.Light.NoActionBar"
-        >
+    <style name="Theme.PlayVale" parent="Theme.AppCompat.Light.NoActionBar">
+        <item name="android:windowFullscreen">true</item>
+        <item name="android:windowContentOverlay">@null</item>
+        <item name="android:windowTranslucentNavigation">true</item>
         <item name="android:windowDrawsSystemBarBackgrounds">true</item>
-        <item name="android:fitsSystemWindows">true</item>
-
+        <item name="android:enforceNavigationBarContrast">false</item>
+        <item name="android:navigationBarColor">@android:color/transparent</item>
+        <item name="android:windowDrawsSystemBarBackgrounds">true</item>
     </style>
 
     <style name="SplashTheme" parent="Theme.PlayVale">
+        <item name="android:statusBarColor">@android:color/transparent</item>
         <item name="android:windowBackground">@android:color/transparent</item>
         <item name="android:windowIsTranslucent">true</item>
-        <item name="android:statusBarColor" >@color/primary_secondary</item>
-        <item name="postSplashScreenTheme">@style/Theme.PlayVale</item>
+        <item name="android:fitsSystemWindows">true</item>
         <item name="android:windowSplashScreenAnimatedIcon" tools:ignore="NewApi">
             @android:color/transparent
         </item>
-        <item name="android:windowLightStatusBar">true</item>
-        <item name="android:windowContentTransitions">true</item>
         <item name="android:windowSplashScreenAnimationDuration" tools:ignore="NewApi">0</item>
+        <item name="android:windowLayoutInDisplayCutoutMode">shortEdges</item>
     </style>
+
+        <style name="Theme.PlayValeLight" parent="Theme.AppCompat.Light.NoActionBar">
+            <item name="android:statusBarColor">@color/primary_secondary</item>
+            <item name="android:windowLightStatusBar">true</item>
+            <item name="android:windowContentTransitions">true</item>
+            <item name="android:windowDisablePreview">true</item>
+
+        </style>
+
 </resources>

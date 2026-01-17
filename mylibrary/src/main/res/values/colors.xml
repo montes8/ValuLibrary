@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <color name="ui_tay_black">#FF000000</color>
+    <color name="ui_tay_white">#FFFFFFFF</color>
+    <color name="ui_tay_gray">#BDBDBD</color>
+    <color name="ui_tay_gray_secondary">#EEEEEE</color>
+</resources>

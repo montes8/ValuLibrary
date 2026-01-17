@@ -1,5 +1,6 @@
 package com.valu.valulibrary.ui.splash
 
+import android.app.Activity
 import android.os.Handler
 import android.os.Looper
 import androidx.compose.animation.core.LinearEasing
@@ -9,10 +10,13 @@ import androidx.compose.foundation.Image
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
+import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
+import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.offset
 import androidx.compose.foundation.layout.padding
+import androidx.compose.foundation.layout.width
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
@@ -26,23 +30,23 @@ import androidx.compose.ui.draw.paint
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.graphicsLayer
 import androidx.compose.ui.layout.ContentScale
+import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.colorResource
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
-import androidx.navigation.NavController
-import androidx.navigation.compose.rememberNavController
 import com.valu.valulibrary.R
+import com.valu.valulibrary.component.ValeGif
 import com.valu.valulibrary.ui.AppViewModel
-import com.valu.valulibrary.ui.nav.ScreenVale
+import com.valu.valulibrary.ui.home.HomeActivity
 import com.valu.valulibrary.utils.TypographySubTitleGabbi
 import com.valu.valulibrary.utils.TypographyTitleBold
 import kotlinx.coroutines.flow.collectLatest
 
 @Composable
-fun ScreenSplash(viewModel: AppViewModel, navController: NavController = rememberNavController()) {
-
+fun ScreenMySplash(viewModel: AppViewModel) {
+    val context = LocalContext.current as Activity
     var animLotti by remember { mutableStateOf(false) }
     var animText by remember { mutableStateOf(false) }
     val offset by animateDpAsState(
@@ -64,18 +68,16 @@ fun ScreenSplash(viewModel: AppViewModel, navController: NavController = remembe
     )
 
     Handler(Looper.getMainLooper()).postDelayed({
-        animText = true
-        animLotti = true },100)
 
+        animText = true
+        animLotti = true },
+        100)
 
     viewModel.loadValidateLogin()
     LaunchedEffect(key1 = true) {
         viewModel.eventFlow.collectLatest { event ->
-            if (event is InitUiEvent.NavigateToNext) {
-                navController.navigate(ScreenVale.ScreenHome.route){
-                    launchSingleTop = true
-                }
-            }
+            HomeActivity.newInstance(context)
+            context.finish()
         }
     }
 
@@ -90,26 +92,22 @@ fun ScreenSplash(viewModel: AppViewModel, navController: NavController = remembe
         verticalArrangement = Arrangement.Center,
         horizontalAlignment = Alignment.CenterHorizontally
     ) {
-        Text(
-            modifier = Modifier
-                .fillMaxWidth().padding(end = 16.dp),
-            color = Color.Black,
-            text = "version 1.0",
-            textAlign = TextAlign.End,
-            style = TypographySubTitleGabbi.labelSmall,
-
-            )
-        Image(
-            painterResource(R.drawable.ic_music_bg),
-            contentDescription = "",
-            contentScale = ContentScale.Crop
-        )
 
         Box( modifier = Modifier
             .offset(y = offset)
-            .graphicsLayer())
+            .graphicsLayer()) {
+            Box( modifier = Modifier
+                .offset(y = offset)
+                .graphicsLayer()) {
+                ValeGif(
+                    resId = R.drawable.gif_splash,
+                     width =  150.dp,
+                     height = 150.dp
+                )
+            }
+        }
 
-        Column(modifier = Modifier
+        Column(modifier = Modifier.padding(top = 40.dp).padding(start = 30.dp)
             .offset(y = offsetBottom)
             .graphicsLayer(),horizontalAlignment = Alignment.CenterHorizontally) {
             Text(
@@ -126,12 +124,27 @@ fun ScreenSplash(viewModel: AppViewModel, navController: NavController = remembe
                 style = TypographyTitleBold.titleMedium,
 
                 )
+            Spacer(
+                modifier =  Modifier.height(40.dp)
+            )
+            Image(
+                painterResource(R.drawable.ic_splash_botton),
+                modifier = Modifier.width(200.dp).height(40.dp),
+                alignment =  Alignment.Center,
+                contentDescription = "",
+                contentScale = ContentScale.Crop
+            )
         }
 
-        Image(
-            painterResource(R.drawable.ic_music_bg),
-            contentDescription = "",
-            contentScale = ContentScale.Crop
-        )
+        Box(contentAlignment= Alignment.BottomEnd,) {
+            Text(
+                modifier = Modifier
+                    .fillMaxWidth().padding(end = 8.dp),
+                color = Color.Black,
+                text = "version 1.0",
+                textAlign = TextAlign.Center,
+                style = TypographySubTitleGabbi.labelSmall
+            )
+        }
     }
 }
