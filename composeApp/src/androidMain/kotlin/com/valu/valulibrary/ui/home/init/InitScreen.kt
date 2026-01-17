@@ -7,7 +7,6 @@ import androidx.compose.foundation.layout.PaddingValues
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.rememberScrollState
-import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.foundation.verticalScroll
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
@@ -17,7 +16,6 @@ import androidx.compose.ui.text.TextStyle
 import androidx.compose.ui.text.style.TextDecoration
 import androidx.compose.ui.unit.dp
 import com.valu.valulibrary.component.VideoWebView
-import com.valu.valulibrary.component.VideoYoutubeWebView
 
 @Composable
 fun InitScreen(paddingValues: PaddingValues) {
@@ -74,7 +72,6 @@ fun InitScreen(paddingValues: PaddingValues) {
         Box(modifier = Modifier.padding(16.dp)){
             VideoWebView(videoHtml)
         }
-
         Column(modifier =
             Modifier.padding(start = 16.dp, end = 16.dp)) {
             Text("Libreria Valu te da bienvenida", modifier =
@@ -92,9 +89,7 @@ fun InitScreen(paddingValues: PaddingValues) {
                     textDecoration = TextDecoration.Underline
                 )
             )
-
         }
-
     }
 
 }

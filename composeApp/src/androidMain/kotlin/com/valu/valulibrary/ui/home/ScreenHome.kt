@@ -33,7 +33,7 @@ fun ScreenHome() {
     Scaffold(
         topBar = {
             UiTayCToolBar(uiTayText = stringResource(R.string.tb_title_home), uiTayModifier = UiTayToolBarModel(
-                uTBgColor = R.color.primary_secondary, uTTypeStart = false, uTTypeEnd = false
+                uTBgColor = R.color.orange_300, uTTypeStart = false, uTTypeEnd = false
             )) {
             }
         }, // Aquí termina la TopBar

@@ -15,8 +15,11 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
+import androidx.compose.ui.draw.drawBehind
 import androidx.compose.ui.draw.shadow
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.graphics.Paint
+import androidx.compose.ui.graphics.drawscope.drawIntoCanvas
 import androidx.compose.ui.input.pointer.pointerInput
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.unit.dp
@@ -39,48 +42,63 @@ fun TayCustomBottomBar(
 ) {
 
     val currentRoute = currentRoute(navController)
-    Row(
-        modifier = Modifier
-            .fillMaxWidth()
-            .shadow(
-                elevation = 8.dp,
-                shape = RoundedCornerShape(topStart = 24.dp, topEnd = 24.dp)
-            ).background(
-                color = Color.White,
-                shape = RoundedCornerShape(topStart = 24.dp, topEnd = 24.dp)
-            )
-            .padding(0.dp) // Margen externo para que parezca "flotante"
-            .clip(RoundedCornerShape(
-                topStart = 24.dp,
-                topEnd = 24.dp
-            )), // Bordes redondeados
-        horizontalArrangement = Arrangement.SpaceAround,
-    ) {
-        Row(
-            modifier = Modifier
-                .padding(vertical = 12.dp, horizontal = 8.dp)
-                .fillMaxWidth(),
-            horizontalArrangement = Arrangement.SpaceAround,
-            verticalAlignment = Alignment.CenterVertically
-        ) {
-            items.forEach { item ->
-                val isSelected = currentRoute == item.route
 
-                CustomTabItem(
-                    item = item,
-                    isSelected = isSelected,
-                    onClick = {
-                        navController.navigate(item.route) {
-                            popUpTo(navController.graph.findStartDestination().id){
-                                saveState = true
+                    Row(
+                        modifier = Modifier
+                            .fillMaxWidth()
+                            .drawBehind {
+                                drawIntoCanvas { canvas ->
+                                    val paint = Paint()
+                                    val frameworkPaint = paint.asFrameworkPaint()
+
+                                    // Configuramos la sombra manualmente
+                                    frameworkPaint.color = android.graphics.Color.WHITE // Color del fondo
+                                    frameworkPaint.setShadowLayer(
+                                        25f,     // Radio de difuminado (Blur)
+                                        0f,      // Desplazamiento X
+                                        -4f,    // Desplazamiento Y (Hacia ARRIBA)
+                                        android.graphics.Color.argb(50, 0, 0, 0) // Color de sombra (negro suave)
+                                    )
+
+                                    // Dibujamos el rectángulo con la sombra
+                                    canvas.drawRoundRect(
+                                        0f, 0f, size.width, size.height,
+                                        60f, 60f, // Radio de las esquinas
+                                        paint
+                                    )
+                                }
                             }
-                            launchSingleTop = true
+                            .background(Color.White, RoundedCornerShape(topStart = 24.dp, topEnd = 24.dp))
+                            ,
+                        horizontalArrangement = Arrangement.SpaceAround,
+                    ) {
+                        Row(
+                            modifier = Modifier
+                                .padding(vertical = 12.dp)
+                                .background(Color.White, RoundedCornerShape(topStart = 24.dp, topEnd = 24.dp)
+                                )
+                                .fillMaxWidth(),
+                            horizontalArrangement = Arrangement.SpaceAround,
+                            verticalAlignment = Alignment.CenterVertically
+                        ) {
+                            items.forEach { item ->
+                                val isSelected = currentRoute == item.route
+
+                                CustomTabItem(
+                                    item = item,
+                                    isSelected = isSelected,
+                                    onClick = {
+                                        navController.navigate(item.route) {
+                                            popUpTo(navController.graph.findStartDestination().id){
+                                                saveState = true
+                                            }
+                                            launchSingleTop = true
+                                        }
+                                    }
+                                )
+                            }
                         }
                     }
-                )
-            }
-        }
-    }
 }
 
 @Composable

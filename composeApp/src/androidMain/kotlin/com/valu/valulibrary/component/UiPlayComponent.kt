@@ -11,13 +11,18 @@ import android.webkit.WebSettings
 import android.webkit.WebView
 import android.webkit.WebViewClient
 import android.widget.ImageView
+import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
+import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.shape.RoundedCornerShape
+import androidx.compose.material3.Card
+import androidx.compose.material3.CardDefaults
+import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.SideEffect
@@ -30,10 +35,14 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.toArgb
+import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.platform.LocalView
+import androidx.compose.ui.res.painterResource
+import androidx.compose.ui.text.PlatformTextStyle
 import androidx.compose.ui.unit.Dp
 import androidx.compose.ui.unit.dp
+import androidx.compose.ui.unit.sp
 import androidx.compose.ui.viewinterop.AndroidView
 import androidx.core.view.WindowCompat
 import androidx.navigation.NavHostController
@@ -41,8 +50,69 @@ import androidx.navigation.compose.currentBackStackEntryAsState
 import com.pierfrancescosoffritti.androidyoutubeplayer.core.player.YouTubePlayer
 import com.pierfrancescosoffritti.androidyoutubeplayer.core.player.listeners.AbstractYouTubePlayerListener
 import com.pierfrancescosoffritti.androidyoutubeplayer.core.player.views.YouTubePlayerView
+import com.valu.valulibrary.R
+import com.valu.valulibrary.model.ProductModel
+import com.valu.valulibrary.utils.orange_300
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.withContext
+
+
+@Composable
+fun UtilEscolarItem(util: ProductModel) {
+    Card(
+        modifier = Modifier
+            .fillMaxWidth()
+            .padding(8.dp).background(Color.White),
+        shape = RoundedCornerShape(12.dp),
+        elevation = CardDefaults.cardElevation(defaultElevation = 12.dp)
+    ) {
+
+
+        Box( modifier = Modifier
+            .fillMaxWidth().height(150.dp).background(Color.White)){
+            Image(
+                painter = painterResource(id = R.drawable.ic_notebook),
+                contentDescription = "Descripción de la imagen", // Importante para accesibilidad
+                modifier = Modifier.fillMaxSize(),
+                contentScale = ContentScale.FillBounds)
+
+            Text(text = "S/${util.price}",
+                modifier = Modifier.align(Alignment.TopEnd)
+                .padding(4.dp) // Margen externo para que el fondo no toque los bordes del Box
+                .clip(RoundedCornerShape(12.dp)) // Recorta el fondo para que sea redondeado
+
+                .background(orange_300.copy(alpha = 0.5f))
+                    .padding(start=4.dp, end = 4.dp, top = 2.dp, bottom = 2.dp), // Fondo blanco (con un toque de transparencia)
+                style = androidx.compose.ui.text.TextStyle(
+                    platformStyle = PlatformTextStyle(
+                        includeFontPadding = false
+                    )
+                ),
+                 color = Color.White,
+                 fontSize = 10.sp,
+
+            )
+
+                Text(text = util.name,
+                    modifier = Modifier.align(Alignment.BottomCenter)
+                    .padding(4.dp) // Margen externo para que el fondo no toque los bordes del Box
+                    .clip(RoundedCornerShape(12.dp)) // Recorta el fondo para que sea redondeado
+
+                    .background(orange_300.copy(alpha = 0.5f))
+                        .padding(start=4.dp, end = 4.dp, top = 2.dp, bottom = 2.dp), // Fondo blanco (con un toque de transparencia)
+
+                    style = androidx.compose.ui.text.TextStyle(
+                        platformStyle = PlatformTextStyle(
+                            includeFontPadding = false
+                        )
+                    ),
+                    fontSize = 14.sp,
+
+                )
+        }
+
+    }
+}
 
 @Composable
 fun YouTubePlayerLibreria(videoId: String) {
