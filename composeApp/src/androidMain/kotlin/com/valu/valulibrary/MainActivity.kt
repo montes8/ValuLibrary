@@ -17,7 +17,6 @@ import com.google.android.play.core.appupdate.AppUpdateOptions
 import com.google.android.play.core.install.model.AppUpdateType
 import com.google.android.play.core.install.model.UpdateAvailability
 import com.valu.valulibrary.ui.AppViewModel
-import com.valu.valulibrary.ui.nav.ValeNavigation
 import com.valu.valulibrary.ui.splash.ScreenMySplash
 import com.valu.valulibrary.utils.ValeTheme
 import org.koin.androidx.viewmodel.ext.android.viewModel

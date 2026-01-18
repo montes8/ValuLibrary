@@ -16,6 +16,8 @@ koin = "4.0.0"
 material = "1.13.0"
 activity = "1.12.2"
 foundationLayout = "1.10.0"
+nav3Core = "2.8.0-alpha01"
+kotlinxSerializationCore = "1.9.0"
 
 [libraries]
 kotlin-test = { module = "org.jetbrains.kotlin:kotlin-test", version.ref = "kotlin" }
@@ -34,6 +36,10 @@ koin-core = { module = "io.insert-koin:koin-core", version.ref = "koin" }
 material = { group = "com.google.android.material", name = "material", version.ref = "material" }
 androidx-activity = { group = "androidx.activity", name = "activity", version.ref = "activity" }
 androidx-foundation-layout = { group = "androidx.compose.foundation", name = "foundation-layout", version.ref = "foundationLayout" }
+
+
+androidx-navigation3-runtime = { module = "androidx.navigation3:navigation3-runtime", version.ref = "nav3Core"}
+kotlinx-serialization-core = {module = "org.jetbrains.kotlinx:kotlinx-serialization-core", version.ref = "kotlinxSerializationCore"}
 
 [plugins]
 androidApplication = { id = "com.android.application", version.ref = "agp" }

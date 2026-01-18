@@ -5,13 +5,9 @@ import android.content.Intent
 import android.os.Bundle
 import androidx.activity.compose.setContent
 import androidx.appcompat.app.AppCompatActivity
-import androidx.compose.material3.Scaffold
-import androidx.compose.ui.res.stringResource
-import com.gb.vale.uitaylibrarycompose.extra.UiTayCToolBar
-import com.gb.vale.uitaylibrarycompose.model.UiTayToolBarModel
-import com.valu.valulibrary.R
-import com.valu.valulibrary.ui.nav.ValeNavigation
+import com.valu.valulibrary.ui.nav.ValeNavigationMain
 import com.valu.valulibrary.utils.ValeTheme
+import org.koin.compose.KoinContext
 
 class HomeActivity : AppCompatActivity() {
 
@@ -27,7 +23,8 @@ class HomeActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContent {
             ValeTheme {
-                ScreenHome()
+                    ValeNavigationMain()
+
             }
         }
     }

@@ -14,9 +14,7 @@ import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.draw.clip
 import androidx.compose.ui.draw.drawBehind
-import androidx.compose.ui.draw.shadow
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.Paint
 import androidx.compose.ui.graphics.drawscope.drawIntoCanvas
@@ -24,11 +22,18 @@ import androidx.compose.ui.input.pointer.pointerInput
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.unit.dp
 import androidx.navigation.NavGraph.Companion.findStartDestination
-import androidx.navigation.NavHostController
+import androidx.navigation3.runtime.NavBackStack
+import androidx.navigation3.runtime.NavKey
+import com.valu.valulibrary.R
+import com.valu.valulibrary.ui.nav.TayDestinations
 
-
+val navigationItems = listOf(
+    TayNavigationItem(TayDestinations.InitNavScreen,"Inicio",R.drawable.ic_nav_init),
+    TayNavigationItem(TayDestinations.ProductNavScreen,"Productos",R.drawable.ic_nav_product),
+    TayNavigationItem(TayDestinations.MoreNavScreen,"Mas",R.drawable.ic_nav_more),
+)
 open class TayNavigationItem(
-    val route: String,
+    val route: TayDestinations,
     val title: String,
     val icon: Int,
     val iconSelected: Int = 0,
@@ -37,12 +42,10 @@ open class TayNavigationItem(
 
 @Composable
 fun TayCustomBottomBar(
-    navController: NavHostController,
+    backStack: NavBackStack<TayDestinations>,
     items: List<TayNavigationItem>
 ) {
-
-    val currentRoute = currentRoute(navController)
-
+    val currentKey = backStack.lastOrNull()
                     Row(
                         modifier = Modifier
                             .fillMaxWidth()
@@ -82,17 +85,13 @@ fun TayCustomBottomBar(
                             verticalAlignment = Alignment.CenterVertically
                         ) {
                             items.forEach { item ->
-                                val isSelected = currentRoute == item.route
-
+                                val isSelected = currentKey == item.route
                                 CustomTabItem(
                                     item = item,
                                     isSelected = isSelected,
                                     onClick = {
-                                        navController.navigate(item.route) {
-                                            popUpTo(navController.graph.findStartDestination().id){
-                                                saveState = true
-                                            }
-                                            launchSingleTop = true
+                                        if (!isSelected) {
+                                            backStack.add(item.route)
                                         }
                                     }
                                 )

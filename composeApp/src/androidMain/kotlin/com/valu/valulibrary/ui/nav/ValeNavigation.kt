@@ -1,92 +1,100 @@
 package com.valu.valulibrary.ui.nav
 
-import androidx.activity.compose.BackHandler
-import androidx.compose.animation.ExitTransition
+import android.os.Parcelable
 import androidx.compose.foundation.layout.PaddingValues
 import androidx.compose.runtime.Composable
-import androidx.navigation.NavHostController
-import androidx.navigation.compose.NavHost
-import androidx.navigation.compose.composable
-import androidx.navigation.compose.rememberNavController
+import androidx.navigation3.runtime.NavBackStack
+import androidx.navigation3.runtime.NavKey
+import androidx.navigation3.runtime.entryProvider
+import androidx.navigation3.runtime.rememberNavBackStack
+import androidx.navigation3.ui.NavDisplay
 import com.valu.valulibrary.R
-import com.valu.valulibrary.component.TayNavigationItem
-import com.valu.valulibrary.ui.AppViewModel
+import com.valu.valulibrary.ui.about.ScreenAboutUs
+import com.valu.valulibrary.ui.detail.ScreenDetail
 import com.valu.valulibrary.ui.home.ScreenHome
 import com.valu.valulibrary.ui.home.init.InitScreen
 import com.valu.valulibrary.ui.home.more.MoresScreen
 import com.valu.valulibrary.ui.home.product.ProductScreen
+import com.valu.valulibrary.ui.term.ScreenTerm
+import kotlinx.serialization.Serializable
+import kotlinx.parcelize.Parcelize
 
 @Composable
-fun ValeNavigation(viewModel: AppViewModel, paddingValues: PaddingValues) {
-    val navController = rememberNavController()
+fun ValeNavigationMain() {
+    val backStack = rememberNavBackStack(ScreenVale.ScreenHome)
+    NavDisplay(
+        backStack = backStack,
+        onBack = { backStack.back() },
+        entryProvider = entryProvider {
+            entry<ScreenVale.ScreenHome> {
+                ScreenHome()
+            }
+            entry<ScreenVale.ScreenTerm> { key ->
+                ScreenTerm()
+            }
+            entry<ScreenVale.ScreenAbout> {
+                ScreenAboutUs()
+            }
 
-    NavHost(
-        navController = navController,
-        startDestination = ScreenVale.ScreenSplash.route,
-        route = ROOT_GRAPH_ROUTE) {
-
-        composable(route = ScreenVale.ScreenSplash.route) {
-            BackHandler(true) {
-                // Or do nothing
+            entry<ScreenVale.ScreenDetail> {
+                ScreenDetail()
             }
         }
+    )
+}
 
-        composable(route = ScreenVale.ScreenHome.route) {
-
-            ScreenHome()
-        }
-    }
-
+@Serializable
+sealed class ScreenVale  : NavKey {
+    @Serializable object ScreenHome : ScreenVale()
+    @Serializable object ScreenTerm : ScreenVale()
+    @Serializable object ScreenAbout : ScreenVale()
+    @Serializable object ScreenDetail : ScreenVale()
 }
 
 
-
-const val ROOT_GRAPH_ROUTE = "root"
-
-sealed class ScreenVale (open val route: String) {
-    object ScreenHome : ScreenVale("home_screen")
-    object ScreenSplash : ScreenVale("splash_screen")
+@Serializable
+sealed class TayDestinations : NavKey , Parcelable {
+    @Serializable @Parcelize data object InitNavScreen: TayDestinations( )
+    @Serializable @Parcelize data object ProductNavScreen: TayDestinations()
+    @Serializable @Parcelize data object MoreNavScreen: TayDestinations()
 }
-
 @Composable
-fun NavigationNavBarHost(
-    navController: NavHostController = rememberNavController(),paddingValues:PaddingValues
-) {
-    NavHost(navController = navController, startDestination = Destinations.InitNavScreen.route,
-        exitTransition = {
-            ExitTransition.None
-        }) {
-        composable(Destinations.InitNavScreen.route) { InitScreen(paddingValues)}
-        composable(Destinations.ProductNavScreen.route) { ProductScreen(paddingValues)}
-        composable(Destinations.MoreNavScreen.route) {MoresScreen(paddingValues) }
+fun NavigationNavBarHost(backStack: NavBackStack<TayDestinations>, paddingValues:PaddingValues) {
+    NavDisplay(
+        backStack = backStack,
+        onBack = { },
+        entryProvider = entryProvider {
+            entry<TayDestinations.InitNavScreen> {
+                InitScreen(paddingValues)
+            }
+            entry<TayDestinations.ProductNavScreen> { key ->
+                ProductScreen(paddingValues)
+            }
+            entry<TayDestinations.MoreNavScreen> {
+                MoresScreen(paddingValues)
+            }
+        }
+    )
+}
+
+
+
+fun NavBackStack<NavKey>.navigateNext(screen: NavKey) {
+    add(screen)
+}
+
+fun NavBackStack<NavKey>.back() {
+    if (isEmpty()) return
+    removeLastOrNull()
+}
+
+fun NavBackStack<NavKey>.backCustom(screen: NavKey) {
+    if (isEmpty()) return
+    if(screen !in this) return
+
+    while(isNotEmpty() && last() != screen){
+        removeLastOrNull()
     }
-}
-
-sealed class Destinations(
-    val route: String,
-    val title: String,
-    val icon: Int,
-    val iconSelected: Int = 0,
-    val iconCustom: Boolean = false
-) {
-    data object InitNavScreen: Destinations("init_screen", "Inicio", R.drawable.ic_nav_init)
-    data object ProductNavScreen: Destinations("product_screen", "Utiles", R.drawable.ic_nav_product)
-    data object MoreNavScreen: Destinations("more_screen", "Mas", R.drawable.ic_nav_more)
-
 
 }
 
-
-sealed class TayDestinations(
-    val route: String,
-    val title: String,
-    val icon: Int,
-    val iconSelected: Int = 0,
-    val iconCustom: Boolean = false
-) {
-    data object InitNavScreen: TayNavigationItem("init_screen", "Inicio", R.drawable.ic_nav_init)
-    data object ProductNavScreen: TayNavigationItem("product_screen", "Utiles", R.drawable.ic_nav_product)
-    data object MoreNavScreen: TayNavigationItem("more_screen", "Mas", R.drawable.ic_nav_more)
-
-
-}
