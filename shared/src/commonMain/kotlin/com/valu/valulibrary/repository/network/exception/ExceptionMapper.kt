@@ -1,4 +1,4 @@
-package com.valu.valulibrary.repository.exception
+package com.valu.valulibrary.repository.network.exception
 
 import kotlinx.serialization.Serializable
 

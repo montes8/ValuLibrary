@@ -19,17 +19,20 @@ class AppViewModel(private val dataUseCase: DataUseCase,):BaseViewModel() {
 
     fun loadValidateLogin(){
         execute {
-            delay(6000)
+            Log.d("TAGVALU","loadValidateLogin")
+            var resposne = dataUseCase.loadData()
             _eventFlow.emit(InitUiEvent.NavigateToNext())
         }
     }
 
-    fun loadData(){
+    fun loadProduct(){
         execute {
-            var resposne = dataUseCase.loadLocations()
-            Log.d("TAGVALU","resposne")
+            Log.d("TAGVALU","loadProduct")
+            var resposne = dataUseCase.getProduct()
             Log.d("TAGVALU",resposne.toString())
+
         }
     }
+
 
 }

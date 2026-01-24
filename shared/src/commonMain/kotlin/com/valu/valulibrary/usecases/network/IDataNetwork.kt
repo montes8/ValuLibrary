@@ -1,9 +1,9 @@
-package com.valu.valulibrary.usecases
+package com.valu.valulibrary.usecases.network
 
 import com.valu.valulibrary.model.Product
 
 interface IDataNetwork {
-    suspend fun loadLocation( ): List<Product>
+    suspend fun loadData( ): List<Product>
 
     suspend fun saveLocation( ): Product
 

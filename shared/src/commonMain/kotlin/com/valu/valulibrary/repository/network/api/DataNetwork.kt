@@ -1,15 +1,15 @@
-package com.valu.valulibrary.repository.api
+package com.valu.valulibrary.repository.network.api
 
 import com.valu.valulibrary.model.Product
-import com.valu.valulibrary.repository.TayService
-import com.valu.valulibrary.usecases.IDataNetwork
+import com.valu.valulibrary.repository.network.TayService
+import com.valu.valulibrary.usecases.network.IDataNetwork
 import com.valu.valulibrary.utils.parseJsonTo
 import com.valu.valulibrary.utils.parseListProduct
 
 class DataNetwork(private val apiService: TayService) : IDataNetwork {
 
-    override suspend fun loadLocation() : List<Product> {
-        return apiService.getLocation().parseListProduct()
+    override suspend fun loadData() : List<Product> {
+        return apiService.loadData().parseListProduct()
 
 
     }

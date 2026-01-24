@@ -35,6 +35,8 @@ kotlin {
             implementation("androidx.navigation3:navigation3-ui:1.1.0-alpha02")
             implementation("org.jetbrains.kotlinx:kotlinx-serialization-json:1.7.3")
             implementation(libs.kotlinx.serialization.core)
+
+            implementation("io.ktor:ktor-client-okhttp:3.1.1")
         }
         commonMain.dependencies {
             implementation(compose.runtime)
@@ -64,6 +66,15 @@ android {
         versionCode = 1
         versionName = "1.0"
     }
+
+    signingConfigs {
+        create("release") {
+            storeFile = file("../keystore/libraryvalu.jks")
+            storePassword = "@libraryvalu2026"
+            keyAlias = "LibraryValu"
+            keyPassword = "@libraryvalu2026"
+        }
+    }
     packaging {
         resources {
             excludes += "/META-INF/{AL2.0,LGPL2.1}"
@@ -71,7 +82,20 @@ android {
     }
     buildTypes {
         getByName("release") {
-            isMinifyEnabled = false
+            isMinifyEnabled = true
+            isDebuggable = true
+            signingConfig = signingConfigs.getByName("release")
+            proguardFiles(
+                getDefaultProguardFile("proguard-android-optimize.txt"),
+                "proguard-rules.pro"
+            )
+        }
+        getByName("debug") {
+            isDebuggable = true
+            proguardFiles(
+                getDefaultProguardFile("proguard-android-optimize.txt"),
+                "proguard-rules.pro"
+            )
         }
     }
     compileOptions {

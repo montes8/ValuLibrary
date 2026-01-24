@@ -1,6 +1,7 @@
 package com.valu.valulibrary.component
 
 import android.app.Activity
+import android.graphics.BitmapFactory
 import android.graphics.ImageDecoder
 import android.graphics.drawable.AnimatedImageDrawable
 import android.graphics.drawable.Drawable
@@ -37,6 +38,8 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.graphics.ImageBitmap
+import androidx.compose.ui.graphics.asImageBitmap
 import androidx.compose.ui.graphics.toArgb
 import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.platform.LocalContext
@@ -60,8 +63,15 @@ import com.valu.valulibrary.R
 import com.valu.valulibrary.model.CategoryModel
 import com.valu.valulibrary.model.ProductModel
 import com.valu.valulibrary.utils.orange_300
+import io.ktor.client.HttpClient
+import io.ktor.client.request.get
+import io.ktor.client.statement.readBytes
+import io.ktor.client.statement.readRawBytes
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.withContext
+import org.koin.compose.koinInject
+import java.util.concurrent.ConcurrentHashMap
+
 
 
 @Composable
@@ -124,7 +134,7 @@ fun UtilEscolarItem(util: ProductModel,width : Dp,marginItem : Dp = 12.dp) {
 
 @Composable
 fun CategoryItem(category: CategoryModel,width : Dp,marginItem : Dp = 12.dp) {
-
+    val client = koinInject<HttpClient>()
     Column( modifier = Modifier
         .background(Color.White).padding(marginItem)) {
                 Card(
@@ -135,10 +145,15 @@ fun CategoryItem(category: CategoryModel,width : Dp,marginItem : Dp = 12.dp) {
                     shape = RoundedCornerShape(12.dp),
                     elevation = CardDefaults.cardElevation(defaultElevation = 12.dp)
                 ) {
-                    Image(painter = painterResource(id = getIconCategory(category.uiId)),
+                   /* Image(painter = painterResource(id = getIconCategory(category.uiId)),
                         contentDescription = "Descripción de la imagen", // Importante para accesibilidad
                         modifier = Modifier.fillMaxSize() .background(Color.White),
-                        contentScale = ContentScale.FillBounds)
+                        contentScale = ContentScale.FillBounds*/
+                       ValeImage(
+                           url = getDirectDriveUrl("https://drive.google.com/file/d/1hp8ma3xqNWVq1LGnE9MOS1ndil7atKUS/view"),
+                               // url ="https://static.vecteezy.com/system/resources/thumbnails/019/550/586/small/pikachu-pokemon-design-free-vector.jpg",
+                              client = client
+                    )
 
                 }
 
@@ -330,5 +345,92 @@ fun getIconCategory(id:Int):Int{
         7 -> R.drawable.ic_bg_products
         8 -> R.drawable.ic_bg_additional
         else -> { R.drawable.ic_notebook}
+    }
+}
+
+
+object ManualImageCache {
+    // Guardamos las imágenes en un mapa para reutilizarlas
+    private val cache = ConcurrentHashMap<String, ImageBitmap>()
+
+    fun get(url: String): ImageBitmap? = cache[url]
+    fun put(url: String, bitmap: ImageBitmap) { cache[url] = bitmap }
+}
+
+
+@Composable
+fun ValeImage(
+    url: String?,
+    client: HttpClient,
+    modifier: Modifier = Modifier
+) {
+    // Estado de la imagen
+    var imageBitmap by remember(url) { mutableStateOf(url?.let { ManualImageCache.get(it) }) }
+    var isLoading by remember(url) { mutableStateOf(imageBitmap == null) }
+
+    // Efecto de carga
+    LaunchedEffect(url) {
+        if (url != null && imageBitmap == null) {
+            isLoading = true
+            try {
+                val bytes = withContext(Dispatchers.IO) {
+                    // 1. Usamos la función recomendada por Ktor
+                    val response = client.get(url)
+                    response.readRawBytes()
+                }
+
+                // 2. Decodificamos el array de bytes a un Bitmap nativo
+                val nativeBitmap = BitmapFactory.decodeByteArray(bytes, 0, bytes.size)
+
+                // 3. Verificamos que no sea nulo antes de convertirlo a ImageBitmap
+                if (nativeBitmap != null) {
+                    val bitmap = nativeBitmap.asImageBitmap()
+                    ManualImageCache.put(url, bitmap)
+                    imageBitmap = bitmap
+                }
+            } catch (e: Exception) {
+                println("Error al descargar o decodificar imagen: ${e.message}")
+            } finally {
+                isLoading = false
+            }
+        }
+    }
+
+    // UI del componente
+    Box(modifier = modifier, contentAlignment = Alignment.Center) {
+        when {
+            imageBitmap != null -> {
+                Image(
+                    bitmap = imageBitmap!!,
+                    contentDescription = null,
+                    modifier = Modifier.fillMaxSize(),
+                    contentScale = ContentScale.Crop
+                )
+            }
+            isLoading -> {
+                // Puedes poner un CircularProgressIndicator aquí
+                Box(Modifier.fillMaxSize().background(Color.LightGray.copy(alpha = 0.5f)))
+            }
+            else -> {
+                // Icono de error
+                Box(Modifier.fillMaxSize().background(Color.Gray))
+            }
+        }
+    }
+}
+
+fun getDirectDriveUrl(originalUrl: String): String {
+    // Si no es de Drive, la devolvemos tal cual
+    if (!originalUrl.contains("drive.google.com")) return originalUrl
+
+    // Buscamos el ID
+    val idPattern = "/d/([^/]+)".toRegex()
+    val match = idPattern.find(originalUrl)
+    val id = match?.groupValues?.get(1)
+
+    return if (id != null) {
+        "https://drive.google.com/uc?export=view&id=$id"
+    } else {
+        originalUrl // Si falla, devolvemos la original
     }
 }

@@ -1,6 +1,7 @@
-package com.valu.valulibrary.repository
+package com.valu.valulibrary.repository.network
 
 import com.valu.valulibrary.model.Product
+import com.valu.valulibrary.utils.getUrlAppTay
 import io.ktor.client.HttpClient
 import io.ktor.client.request.HttpRequestBuilder
 import io.ktor.client.request.get
@@ -14,10 +15,10 @@ import io.ktor.http.path
 
 class TayService(private val client: HttpClient) {
 
-    inline fun <reified T>HttpRequestBuilder.pathUrlPost(path: String, body : T){
+    inline fun <reified T> HttpRequestBuilder.pathUrlPost(path: String, body : T){
         url {
-            protocol = URLProtocol.HTTPS
-            host = "servertay.onrender.com"
+            protocol = URLProtocol.Companion.HTTPS
+            host = getUrlAppTay()
             path(path)
             // parameters.append("token", "abc123")
             //headers { append(HttpHeaders.Authorization, "abc123")}
@@ -28,15 +29,15 @@ class TayService(private val client: HttpClient) {
 
     fun HttpRequestBuilder.pathUrlGet(urlSecond: String){
         url {
-            protocol = URLProtocol.HTTPS
-            host = "servertay.onrender.com"
+            protocol = URLProtocol.Companion.HTTPS
+            host = getUrlAppTay()
             path(urlSecond)
             // parameters.append("token", "abc123")
             //headers { append(HttpHeaders.Authorization, "abc123")}
             contentType(ContentType.Application.Json)
         }
     }
-    suspend fun getLocation(): String{
+    suspend fun loadData(): String{
         val response = client.get {
             pathUrlGet("services/product")
         }

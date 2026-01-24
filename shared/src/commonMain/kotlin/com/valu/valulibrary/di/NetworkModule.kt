@@ -1,9 +1,9 @@
 package com.valu.valulibrary.di
 
 
-import com.valu.valulibrary.repository.exception.ErrorAuthorization
-import com.valu.valulibrary.repository.exception.ErrorGeneric
-import com.valu.valulibrary.repository.exception.ExceptionMapperSoap
+import com.valu.valulibrary.repository.network.exception.ErrorAuthorization
+import com.valu.valulibrary.repository.network.exception.ErrorGeneric
+import com.valu.valulibrary.repository.network.exception.ExceptionMapperSoap
 import com.valu.valulibrary.requestLogger
 import com.valu.valulibrary.utils.InstantSerializer
 import io.ktor.client.HttpClient

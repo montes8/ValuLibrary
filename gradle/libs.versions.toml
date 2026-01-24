@@ -18,6 +18,9 @@ activity = "1.12.2"
 foundationLayout = "1.10.0"
 nav3Core = "2.8.0-alpha01"
 kotlinxSerializationCore = "1.9.0"
+androidx-room = "2.7.0-rc03"
+ksp = "2.1.21-2.0.2"
+sqlite = "2.5.0-rc03"
 
 [libraries]
 kotlin-test = { module = "org.jetbrains.kotlin:kotlin-test", version.ref = "kotlin" }
@@ -38,8 +41,14 @@ androidx-activity = { group = "androidx.activity", name = "activity", version.re
 androidx-foundation-layout = { group = "androidx.compose.foundation", name = "foundation-layout", version.ref = "foundationLayout" }
 
 
+room-runtime = { group = "androidx.room", name = "room-runtime", version.ref = "androidx-room" }
+room-ktx = { group = "androidx.room", name = "room-ktx", version.ref = "androidx-room" }
+sqlite-bundled = { module = "androidx.sqlite:sqlite-bundled", version.ref = "sqlite" }
+
 androidx-navigation3-runtime = { module = "androidx.navigation3:navigation3-runtime", version.ref = "nav3Core"}
 kotlinx-serialization-core = {module = "org.jetbrains.kotlinx:kotlinx-serialization-core", version.ref = "kotlinxSerializationCore"}
+androidx-room-compiler = { group = "androidx.room", name = "room-compiler", version.ref = "androidx-room" }
+
 
 [plugins]
 androidApplication = { id = "com.android.application", version.ref = "agp" }
@@ -48,3 +57,5 @@ composeMultiplatform = { id = "org.jetbrains.compose", version.ref = "composeMul
 composeCompiler = { id = "org.jetbrains.kotlin.plugin.compose", version.ref = "kotlin" }
 kotlinMultiplatform = { id = "org.jetbrains.kotlin.multiplatform", version.ref = "kotlin" }
 kotlinAndroid = { id = "org.jetbrains.kotlin.android", version.ref = "kotlin" }
+ksp = { id = "com.google.devtools.ksp", version.ref = "ksp" }
+room = { id = "androidx.room", version.ref = "androidx-room" }

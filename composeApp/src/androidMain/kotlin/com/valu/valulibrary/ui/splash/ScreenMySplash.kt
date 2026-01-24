@@ -1,8 +1,6 @@
 package com.valu.valulibrary.ui.splash
 
 import android.app.Activity
-import android.os.Handler
-import android.os.Looper
 import androidx.compose.animation.core.LinearEasing
 import androidx.compose.animation.core.animateDpAsState
 import androidx.compose.animation.core.tween
@@ -67,17 +65,20 @@ fun ScreenMySplash(viewModel: AppViewModel) {
         label = "Animation bottom"
     )
 
-    Handler(Looper.getMainLooper()).postDelayed({
-
+    LaunchedEffect(Unit) {
         animText = true
-        animLotti = true },
-        100)
-
-    viewModel.loadValidateLogin()
+        animLotti = true
+        viewModel.loadValidateLogin()
+    }
     LaunchedEffect(key1 = true) {
         viewModel.eventFlow.collectLatest { event ->
-            HomeActivity.newInstance(context)
-            context.finish()
+            when (event) {
+                is InitUiEvent.NavigateToNext -> {
+                    HomeActivity.newInstance(context)
+                    context.finish()
+                }
+                else ->  {} }
+
         }
     }
 

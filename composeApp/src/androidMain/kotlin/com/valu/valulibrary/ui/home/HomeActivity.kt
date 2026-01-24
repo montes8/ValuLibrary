@@ -29,7 +29,7 @@ class HomeActivity : AppCompatActivity() {
     }
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        viewModel.loadData()
+        viewModel.loadProduct()
         setContent {
             ValeTheme {
                 val dispatcherOwner = remember {

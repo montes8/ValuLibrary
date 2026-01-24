@@ -12,6 +12,8 @@ import kotlinx.serialization.json.Json
 import kotlinx.serialization.json.Json.Default.decodeFromString
 import kotlinx.serialization.json.JsonDecoder
 import kotlinx.serialization.json.jsonPrimitive
+import kotlinx.serialization.serializer
+
 val jsonWorker = Json {
     ignoreUnknownKeys = true // ¡CRUCIAL! Ignora campos que no estén en tu data class
     isLenient = true         // Permite formatos de JSON más flexibles (comas de más, etc.)
@@ -43,4 +45,15 @@ object InstantSerializer: KSerializer<Instant> {
     override fun serialize(encoder: Encoder, value: Instant) {
         return encoder.encodeString(value.toString())
     }
+}
+
+inline fun <reified T : Any> T.toJsonString(
+): String {
+    val appJson = Json {
+        prettyPrint = true       // Para JSON legible
+        ignoreUnknownKeys = true // Útil para la deserialización (aunque aquí solo serializamos)
+        encodeDefaults = true    // Incluye propiedades con valores predeterminados
+    }
+
+    return appJson.encodeToString(serializer<T>(), this)
 }
