@@ -3,6 +3,7 @@ import org.jetbrains.kotlin.gradle.dsl.JvmTarget
 plugins {
     id("com.android.library")
     id("org.jetbrains.kotlin.multiplatform")
+    kotlin("plugin.serialization") version "2.1.0" // Usa la misma versión de tu Kotlin
 }
 
 kotlin {
@@ -18,6 +19,7 @@ kotlin {
     }
 
     val ktorVersion = "3.1.1"
+    val kotlinxDatetime = "0.6.1"
     sourceSets {
         androidMain.dependencies {
         implementation("io.ktor:ktor-client-okhttp:${ktorVersion}")
@@ -28,6 +30,9 @@ kotlin {
             implementation("io.ktor:ktor-client-core:${ktorVersion}")
             implementation("io.ktor:ktor-client-content-negotiation:${ktorVersion}")
             implementation("io.ktor:ktor-serialization-kotlinx-json:${ktorVersion}")
+            implementation("org.jetbrains.kotlinx:kotlinx-serialization-json:1.6.3")
+            implementation("org.jetbrains.kotlinx:kotlinx-datetime:${kotlinxDatetime}")
+            implementation("io.ktor:ktor-client-logging:${ktorVersion}")
         }
         commonTest.dependencies {
             implementation(libs.kotlin.test)

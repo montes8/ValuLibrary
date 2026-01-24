@@ -8,8 +8,6 @@ import androidx.compose.ui.res.stringResource
 import androidx.navigation3.runtime.NavBackStack
 import androidx.navigation3.runtime.NavKey
 import androidx.navigation3.runtime.rememberNavBackStack
-import com.gb.vale.uitaylibrarycompose.extra.UiTayCToolBar
-import com.gb.vale.uitaylibrarycompose.model.UiTayToolBarModel
 import com.valu.valulibrary.R
 import com.valu.valulibrary.component.TayCustomBottomBar
 import com.valu.valulibrary.component.TayNavigationItem
@@ -31,10 +29,10 @@ fun ScreenHome() {
 
     Scaffold(
         topBar = {
-            UiTayCToolBar(uiTayText = stringResource(R.string.tb_title_home), uiTayModifier = UiTayToolBarModel(
+           /* UiTayCToolBar(uiTayText = stringResource(R.string.tb_title_home), uiTayModifier = UiTayToolBarModel(
                 uTBgColor = R.color.orange_300, uTTypeStart = false, uTTypeEnd = false
             )) {
-            }
+            }*/
         }, // Aquí termina la TopBar
         bottomBar = {
             // Aquí va tu componente de barra inferior (ej. BottomAppBar o NavigationBar)
