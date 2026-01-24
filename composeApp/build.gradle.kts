@@ -34,11 +34,7 @@ kotlin {
             implementation("androidx.navigation3:navigation3-runtime:1.1.0-alpha02")
             implementation("androidx.navigation3:navigation3-ui:1.1.0-alpha02")
             implementation("org.jetbrains.kotlinx:kotlinx-serialization-json:1.7.3")
-
             implementation(libs.kotlinx.serialization.core)
-
-            implementation(project(":mylibrary"))
-
         }
         commonMain.dependencies {
             implementation(compose.runtime)
