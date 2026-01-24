@@ -16,13 +16,26 @@ kotlin {
             isStatic = true
         }
     }
-    
+
+    val ktorVersion = "3.1.1"
     sourceSets {
+        androidMain.dependencies {
+        implementation("io.ktor:ktor-client-okhttp:${ktorVersion}")
+
+    }
         commonMain.dependencies {
             api(libs.koin.core)
+            implementation("io.ktor:ktor-client-core:${ktorVersion}")
+            implementation("io.ktor:ktor-client-content-negotiation:${ktorVersion}")
+            implementation("io.ktor:ktor-serialization-kotlinx-json:${ktorVersion}")
         }
         commonTest.dependencies {
             implementation(libs.kotlin.test)
+        }
+
+        iosMain.dependencies {
+            implementation("io.ktor:ktor-client-darwin:${ktorVersion}")
+
         }
     }
 }
