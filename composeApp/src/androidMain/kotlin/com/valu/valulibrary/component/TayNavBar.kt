@@ -30,7 +30,7 @@ import com.valu.valulibrary.ui.nav.TayDestinations
 val navigationItems = listOf(
     TayNavigationItem(TayDestinations.InitNavScreen,"Inicio",R.drawable.ic_nav_init),
     TayNavigationItem(TayDestinations.ProductNavScreen,"Productos",R.drawable.ic_nav_product),
-    TayNavigationItem(TayDestinations.MoreNavScreen,"Mas",R.drawable.ic_nav_more),
+    TayNavigationItem(TayDestinations.MoreNavScreen,"categorias",R.drawable.ic_nav_category),
 )
 open class TayNavigationItem(
     val route: TayDestinations,

@@ -8,7 +8,6 @@ import androidx.navigation3.runtime.NavKey
 import androidx.navigation3.runtime.entryProvider
 import androidx.navigation3.runtime.rememberNavBackStack
 import androidx.navigation3.ui.NavDisplay
-import com.valu.valulibrary.R
 import com.valu.valulibrary.ui.about.ScreenAboutUs
 import com.valu.valulibrary.ui.detail.ScreenDetail
 import com.valu.valulibrary.ui.home.ScreenHome
@@ -29,7 +28,7 @@ fun ValeNavigationMain() {
             entry<ScreenVale.ScreenHome> {
                 ScreenHome()
             }
-            entry<ScreenVale.ScreenTerm> { key ->
+            entry<ScreenVale.ScreenTerm> {
                 ScreenTerm()
             }
             entry<ScreenVale.ScreenAbout> {

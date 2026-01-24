@@ -13,7 +13,10 @@ import android.webkit.WebViewClient
 import android.widget.ImageView
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
+import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
+import androidx.compose.foundation.layout.Column
+import androidx.compose.foundation.layout.fillMaxHeight
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
@@ -37,9 +40,12 @@ import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.toArgb
 import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.platform.LocalContext
+import androidx.compose.ui.platform.LocalDensity
 import androidx.compose.ui.platform.LocalView
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.text.PlatformTextStyle
+import androidx.compose.ui.text.style.TextAlign
+import androidx.compose.ui.unit.Density
 import androidx.compose.ui.unit.Dp
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
@@ -51,6 +57,7 @@ import com.pierfrancescosoffritti.androidyoutubeplayer.core.player.YouTubePlayer
 import com.pierfrancescosoffritti.androidyoutubeplayer.core.player.listeners.AbstractYouTubePlayerListener
 import com.pierfrancescosoffritti.androidyoutubeplayer.core.player.views.YouTubePlayerView
 import com.valu.valulibrary.R
+import com.valu.valulibrary.model.CategoryModel
 import com.valu.valulibrary.model.ProductModel
 import com.valu.valulibrary.utils.orange_300
 import kotlinx.coroutines.Dispatchers
@@ -58,18 +65,18 @@ import kotlinx.coroutines.withContext
 
 
 @Composable
-fun UtilEscolarItem(util: ProductModel) {
+fun UtilEscolarItem(util: ProductModel,width : Dp,marginItem : Dp = 12.dp) {
     Card(
         modifier = Modifier
             .fillMaxWidth()
-            .padding(8.dp).background(Color.White),
+            .padding(marginItem).background(Color.White),
         shape = RoundedCornerShape(12.dp),
         elevation = CardDefaults.cardElevation(defaultElevation = 12.dp)
     ) {
 
 
         Box( modifier = Modifier
-            .fillMaxWidth().height(150.dp).background(Color.White)){
+            .fillMaxWidth().height(width / 2 - marginItem * 3).background(Color.White)){
             Image(
                 painter = painterResource(id = R.drawable.ic_notebook),
                 contentDescription = "Descripción de la imagen", // Importante para accesibilidad
@@ -95,7 +102,7 @@ fun UtilEscolarItem(util: ProductModel) {
 
                 Text(text = util.name,
                     modifier = Modifier.align(Alignment.BottomCenter)
-                    .padding(4.dp) // Margen externo para que el fondo no toque los bordes del Box
+                    .padding(8.dp) // Margen externo para que el fondo no toque los bordes del Box
                     .clip(RoundedCornerShape(12.dp)) // Recorta el fondo para que sea redondeado
 
                     .background(orange_300.copy(alpha = 0.5f))
@@ -112,6 +119,38 @@ fun UtilEscolarItem(util: ProductModel) {
         }
 
     }
+}
+
+
+@Composable
+fun CategoryItem(category: CategoryModel,width : Dp,marginItem : Dp = 12.dp) {
+
+    Column( modifier = Modifier
+        .background(Color.White).padding(marginItem)) {
+                Card(
+                    modifier = Modifier
+                        .fillMaxWidth()
+                        .height(width / 2 - marginItem * 3)
+                        .background(Color.White),
+                    shape = RoundedCornerShape(12.dp),
+                    elevation = CardDefaults.cardElevation(defaultElevation = 12.dp)
+                ) {
+                    Image(painter = painterResource(id = getIconCategory(category.uiId)),
+                        contentDescription = "Descripción de la imagen", // Importante para accesibilidad
+                        modifier = Modifier.fillMaxSize() .background(Color.White),
+                        contentScale = ContentScale.FillBounds)
+
+                }
+
+        Text(text = category.name,
+            modifier = Modifier.fillMaxWidth()
+            ,textAlign = TextAlign.Center,
+
+            fontSize = 14.sp,
+
+        )
+    }
+
 }
 
 @Composable
@@ -270,5 +309,26 @@ fun ColorStatusBar(color: Color, darkIcons: Boolean) {
             window.statusBarColor = color.toArgb()
             WindowCompat.getInsetsController(window, view).isAppearanceLightStatusBars = darkIcons
         }
+    }
+}
+
+val Int.tayToDp: Dp
+    @Composable
+    get() = with(LocalDensity.current) { this@tayToDp.toDp() }
+
+
+
+fun getIconCategory(id:Int):Int{
+    return when(id){
+        0 -> R.drawable.ic_notebook
+        1 -> R.drawable.ic_bg_stationery
+        2 -> R.drawable.ic_bg_writing
+        3 -> R.drawable.ic_bg_geometry
+        4 -> R.drawable.ic_bg_art
+        5 -> R.drawable.ic_bg_stickers
+        6 -> R.drawable.ic_bg_materials
+        7 -> R.drawable.ic_bg_products
+        8 -> R.drawable.ic_bg_additional
+        else -> { R.drawable.ic_notebook}
     }
 }

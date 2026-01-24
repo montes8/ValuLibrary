@@ -7,7 +7,6 @@ import androidx.activity.compose.setContent
 import androidx.appcompat.app.AppCompatActivity
 import com.valu.valulibrary.ui.nav.ValeNavigationMain
 import com.valu.valulibrary.utils.ValeTheme
-import org.koin.compose.KoinContext
 
 class HomeActivity : AppCompatActivity() {
 
@@ -23,8 +22,7 @@ class HomeActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContent {
             ValeTheme {
-                    ValeNavigationMain()
-
+                ValeNavigationMain()
             }
         }
     }
