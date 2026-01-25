@@ -4,48 +4,43 @@ import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.PaddingValues
 import androidx.compose.foundation.layout.fillMaxSize
+import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
-import androidx.compose.foundation.lazy.grid.GridCells
-import androidx.compose.foundation.lazy.grid.LazyVerticalGrid
-import androidx.compose.foundation.lazy.grid.items
+import androidx.compose.foundation.lazy.LazyColumn
+import androidx.compose.foundation.lazy.items
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
-import androidx.compose.runtime.getValue
-import androidx.compose.runtime.mutableStateOf
-import androidx.compose.runtime.remember
-import androidx.compose.runtime.setValue
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
-import androidx.compose.ui.layout.onGloballyPositioned
+import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
-import com.valu.valulibrary.component.UtilEscolarItem
-import com.valu.valulibrary.component.tayToDp
-import com.valu.valulibrary.model.ProductModel
+import com.valu.valulibrary.component.RecipesItem
+import com.valu.valulibrary.ui.AppViewModel
+import com.valu.valulibrary.utils.TypographySubTitleGabbi
+import com.valu.valulibrary.utils.TypographyTitleBold
+import com.valu.valulibrary.utils.orange_400
+import org.koin.compose.viewmodel.koinViewModel
 
 @Composable
-fun ProductScreen(paddingValues: PaddingValues) {
-
-    var columnWidthPx by remember { mutableStateOf(0) }
+fun ProductScreen(viewModel: AppViewModel = koinViewModel()) {
 
 
-    val utiles = listOf(ProductModel(), ProductModel(),ProductModel(), ProductModel(), ProductModel(), ProductModel())
+    val products = viewModel.listProducts
+
     Column(modifier = Modifier.fillMaxSize()
-        .background(Color.White)
-        .padding(paddingValues).onGloballyPositioned { coordinates ->
-            columnWidthPx = coordinates.size.width
-        }) {
+        .background(Color.White)) {
 
         Column() {
             Text("Utiles mas pedidos",modifier =
-                Modifier.padding(16.dp))
-            LazyVerticalGrid(
-                // 'Fixed(2)' define exactamente 2 columnas
-                columns = GridCells.Fixed(2),
+                Modifier.padding(top = 12.dp).fillMaxWidth(),textAlign= TextAlign.Center,
+                style = TypographyTitleBold.titleSmall, color = orange_400
+            )
+            LazyColumn(
                 modifier = Modifier.fillMaxSize(),
-                contentPadding = PaddingValues(8.dp) // Margen en los bordes de la pantalla
+                contentPadding = PaddingValues(8.dp)
             ) {
-                items(utiles) { util ->
-                    UtilEscolarItem(util,columnWidthPx.tayToDp)
+                items(products) { product ->
+                    RecipesItem(product)
                 }
             }
         }

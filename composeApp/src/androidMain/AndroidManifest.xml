@@ -15,12 +15,10 @@
         android:theme="@style/Theme.PlayValeLight">
         <activity
             android:name=".ui.home.HomeActivity"
-            android:theme="@style/Theme.PlayValeLight"
             android:exported="false" />
         <activity
             android:name=".MainActivity"
-            android:exported="true"
-            android:theme="@style/SplashTheme">
+            android:exported="true">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 

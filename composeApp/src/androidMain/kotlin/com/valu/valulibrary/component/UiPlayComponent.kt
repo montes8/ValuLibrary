@@ -5,6 +5,7 @@ import android.graphics.BitmapFactory
 import android.graphics.ImageDecoder
 import android.graphics.drawable.AnimatedImageDrawable
 import android.graphics.drawable.Drawable
+import android.os.Build
 import android.view.View
 import android.view.ViewGroup
 import android.webkit.WebChromeClient
@@ -14,10 +15,12 @@ import android.webkit.WebViewClient
 import android.widget.ImageView
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
+import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
-import androidx.compose.foundation.layout.fillMaxHeight
+import androidx.compose.foundation.layout.Row
+import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
@@ -26,6 +29,7 @@ import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material3.Card
 import androidx.compose.material3.CardDefaults
+import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
@@ -46,12 +50,9 @@ import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.platform.LocalDensity
 import androidx.compose.ui.platform.LocalView
 import androidx.compose.ui.res.painterResource
-import androidx.compose.ui.text.PlatformTextStyle
 import androidx.compose.ui.text.style.TextAlign
-import androidx.compose.ui.unit.Density
 import androidx.compose.ui.unit.Dp
 import androidx.compose.ui.unit.dp
-import androidx.compose.ui.unit.sp
 import androidx.compose.ui.viewinterop.AndroidView
 import androidx.core.view.WindowCompat
 import androidx.navigation.NavHostController
@@ -61,80 +62,83 @@ import com.pierfrancescosoffritti.androidyoutubeplayer.core.player.listeners.Abs
 import com.pierfrancescosoffritti.androidyoutubeplayer.core.player.views.YouTubePlayerView
 import com.valu.valulibrary.R
 import com.valu.valulibrary.model.CategoryModel
-import com.valu.valulibrary.model.ProductModel
-import com.valu.valulibrary.utils.orange_300
+import com.valu.valulibrary.model.Product
+import com.valu.valulibrary.utils.TypographyTitleBold
+import com.valu.valulibrary.utils.orange_400
 import io.ktor.client.HttpClient
 import io.ktor.client.request.get
-import io.ktor.client.statement.readBytes
 import io.ktor.client.statement.readRawBytes
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.withContext
 import org.koin.compose.koinInject
 import java.util.concurrent.ConcurrentHashMap
 
-
-
 @Composable
-fun UtilEscolarItem(util: ProductModel,width : Dp,marginItem : Dp = 12.dp) {
+fun RecipesItem(model: Product){
+    val client = koinInject<HttpClient>()
     Card(
         modifier = Modifier
             .fillMaxWidth()
-            .padding(marginItem).background(Color.White),
-        shape = RoundedCornerShape(12.dp),
+            .padding(6.dp),
+        shape = RoundedCornerShape(16.dp),
         elevation = CardDefaults.cardElevation(defaultElevation = 12.dp)
     ) {
-
-
-        Box( modifier = Modifier
-            .fillMaxWidth().height(width / 2 - marginItem * 3).background(Color.White)){
-            Image(
-                painter = painterResource(id = R.drawable.ic_notebook),
-                contentDescription = "Descripción de la imagen", // Importante para accesibilidad
-                modifier = Modifier.fillMaxSize(),
-                contentScale = ContentScale.FillBounds)
-
-            Text(text = "S/${util.price}",
-                modifier = Modifier.align(Alignment.TopEnd)
-                .padding(4.dp) // Margen externo para que el fondo no toque los bordes del Box
-                .clip(RoundedCornerShape(12.dp)) // Recorta el fondo para que sea redondeado
-
-                .background(orange_300.copy(alpha = 0.5f))
-                    .padding(start=4.dp, end = 4.dp, top = 2.dp, bottom = 2.dp), // Fondo blanco (con un toque de transparencia)
-                style = androidx.compose.ui.text.TextStyle(
-                    platformStyle = PlatformTextStyle(
-                        includeFontPadding = false
-                    )
-                ),
-                 color = Color.White,
-                 fontSize = 10.sp,
-
+        Row(
+            modifier = Modifier
+                .fillMaxWidth()
+                .clickable { }.background(Color.White),
+            // 1. Cambiamos a Alignment.Top para que todo empiece arriba
+            verticalAlignment = Alignment.Top
+        ) {
+            ValeImage(
+                url = getDirectDriveUrl("https://drive.google.com/file/d/1hp8ma3xqNWVq1LGnE9MOS1ndil7atKUS/view"),
+                client = client,
+                modifier = Modifier.size(120.dp)
             )
 
-                Text(text = util.name,
-                    modifier = Modifier.align(Alignment.BottomCenter)
-                    .padding(8.dp) // Margen externo para que el fondo no toque los bordes del Box
-                    .clip(RoundedCornerShape(12.dp)) // Recorta el fondo para que sea redondeado
-
-                    .background(orange_300.copy(alpha = 0.5f))
-                        .padding(start=4.dp, end = 4.dp, top = 2.dp, bottom = 2.dp), // Fondo blanco (con un toque de transparencia)
-
-                    style = androidx.compose.ui.text.TextStyle(
-                        platformStyle = PlatformTextStyle(
-                            includeFontPadding = false
-                        )
-                    ),
-                    fontSize = 14.sp,
-
+            // 2. La columna ahora distribuye su espacio
+            Column(
+                modifier = Modifier
+                    .weight(1f)
+                    .height(120.dp).padding(top = 6.dp, start = 6.dp, end = 6.dp, bottom = 4.dp),
+                verticalArrangement = Arrangement.SpaceBetween
+            ) {
+                Text(
+                    text ="Alpha cuadriculado 70h",
+                    maxLines = 1,
+                    style = TypographyTitleBold.labelLarge,
+                    color = orange_400
                 )
-        }
 
+                Spacer(modifier = Modifier.height(4.dp))
+                Text(
+                    text = "Precio: S/ 4.00",
+                    maxLines = 1,
+                    style = TypographyTitleBold.labelSmall,
+                    color = Color.Black
+                )
+                Spacer(modifier = Modifier.height(2.dp))
+                Text(
+                    text = "cuaderno alpha cuadriculado de 70 hojas,con una tapa de cartón flexible de colores brillante, hojas resistentes.",
+                    modifier = Modifier
+                        .weight(1f),
+                    maxLines = 4,
+                    style = MaterialTheme.typography.bodySmall,
+                )
+
+                Text(
+                    text = "${model.sellerClient ?: "N/A"} ${model.district ?: "N/A"}",
+                    style = MaterialTheme.typography.labelSmall,
+                    color = Color.Gray
+                )
+            }
+
+        }
     }
 }
 
-
 @Composable
 fun CategoryItem(category: CategoryModel,width : Dp,marginItem : Dp = 12.dp) {
-    val client = koinInject<HttpClient>()
     Column( modifier = Modifier
         .background(Color.White).padding(marginItem)) {
                 Card(
@@ -145,24 +149,17 @@ fun CategoryItem(category: CategoryModel,width : Dp,marginItem : Dp = 12.dp) {
                     shape = RoundedCornerShape(12.dp),
                     elevation = CardDefaults.cardElevation(defaultElevation = 12.dp)
                 ) {
-                   /* Image(painter = painterResource(id = getIconCategory(category.uiId)),
-                        contentDescription = "Descripción de la imagen", // Importante para accesibilidad
+                    Image(painter = painterResource(id =
+                        getIconCategory(category.uiId)),
+                        contentDescription = "Descripción de la imagen",
                         modifier = Modifier.fillMaxSize() .background(Color.White),
-                        contentScale = ContentScale.FillBounds*/
-                       ValeImage(
-                           url = getDirectDriveUrl("https://drive.google.com/file/d/1hp8ma3xqNWVq1LGnE9MOS1ndil7atKUS/view"),
-                               // url ="https://static.vecteezy.com/system/resources/thumbnails/019/550/586/small/pikachu-pokemon-design-free-vector.jpg",
-                              client = client
-                    )
-
+                        contentScale = ContentScale.FillBounds)
                 }
 
         Text(text = category.name,
-            modifier = Modifier.fillMaxWidth()
+            modifier = Modifier.fillMaxWidth().padding(4.dp)
             ,textAlign = TextAlign.Center,
-
-            fontSize = 14.sp,
-
+            style = TypographyTitleBold.bodyMedium, color = orange_400
         )
     }
 
@@ -263,14 +260,23 @@ fun ValeGif(
     LaunchedEffect(resId) {
         withContext(Dispatchers.IO) {
             try {
-                val source = ImageDecoder.createSource(context.resources, resId)
-                val decoded = ImageDecoder.decodeDrawable(source)
-                drawable = decoded
+                if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.P) {
+                    // Solución para Android 9+ (API 28+)
+                    val source = ImageDecoder.createSource(context.resources, resId)
+                    drawable = ImageDecoder.decodeDrawable(source)
+                } else {
+                    // Solución para Android 7, 8 (API 24-27)
+                    // Obtenemos el drawable de forma tradicional.
+                    // Nota: Esto mostrará el primer frame del GIF como imagen estática.
+                    val staticDrawable = androidx.core.content.ContextCompat.getDrawable(context, resId)
+                    drawable = staticDrawable
+                }
             } catch (e: Exception) {
                 e.printStackTrace()
             }
         }
     }
+
     val sizeModifier = if (width != null && height != null) {
         Modifier.size(width, height)
     } else {
@@ -278,8 +284,7 @@ fun ValeGif(
     }
 
     Box(
-        modifier = modifier
-            .background(backgroundColor),
+        modifier = modifier.background(backgroundColor),
         contentAlignment = Alignment.Center
     ) {
         drawable?.let { gifDrawable ->
@@ -289,7 +294,9 @@ fun ValeGif(
                     ImageView(ctx).apply {
                         scaleType = ImageView.ScaleType.CENTER_CROP
                         setImageDrawable(gifDrawable)
-                        post {
+
+                        // Solo intentamos animar si la API lo permite
+                        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.P) {
                             if (gifDrawable is AnimatedImageDrawable) {
                                 gifDrawable.start()
                             }
@@ -298,8 +305,10 @@ fun ValeGif(
                 },
                 update = { imageView ->
                     imageView.setImageDrawable(gifDrawable)
-                    if (gifDrawable is AnimatedImageDrawable) {
-                        gifDrawable.start()
+                    if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.P) {
+                        if (gifDrawable is AnimatedImageDrawable) {
+                            gifDrawable.start()
+                        }
                     }
                 }
             )

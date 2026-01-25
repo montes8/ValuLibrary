@@ -4,6 +4,7 @@ import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.PaddingValues
 import androidx.compose.foundation.layout.fillMaxSize
+import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.lazy.grid.GridCells
 import androidx.compose.foundation.lazy.grid.LazyVerticalGrid
@@ -17,10 +18,13 @@ import androidx.compose.runtime.setValue
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.layout.onGloballyPositioned
+import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
 import com.valu.valulibrary.component.CategoryItem
 import com.valu.valulibrary.component.tayToDp
 import com.valu.valulibrary.model.CategoryModel
+import com.valu.valulibrary.utils.TypographyTitleBold
+import com.valu.valulibrary.utils.orange_400
 
 @Composable
 fun MoresScreen (paddingValues: PaddingValues) {
@@ -43,8 +47,10 @@ fun MoresScreen (paddingValues: PaddingValues) {
         columnWidthPx = coordinates.size.width
         }) {
 
-            Text("Categorias de todos nuestros utiles", modifier =
-                Modifier.padding(16.dp))
+        Text("Categorias de Utiles",modifier =
+            Modifier.padding(top = 12.dp).fillMaxWidth(),textAlign= TextAlign.Center,
+            style = TypographyTitleBold.titleSmall, color = orange_400
+        )
             LazyVerticalGrid(
                 // 'Fixed(2)' define exactamente 2 columnas
                 columns = GridCells.Fixed(2),

@@ -67,7 +67,7 @@ fun NavigationNavBarHost(backStack: NavBackStack<TayDestinations>, paddingValues
                 InitScreen(paddingValues)
             }
             entry<TayDestinations.ProductNavScreen> { key ->
-                ProductScreen(paddingValues)
+                ProductScreen()
             }
             entry<TayDestinations.MoreNavScreen> {
                 MoresScreen(paddingValues)

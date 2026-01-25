@@ -9,7 +9,7 @@ import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.sp
 import com.valu.valulibrary.R
 
-val Typography = androidx.compose.material3.Typography(
+val Typography = Typography(
     bodyLarge = TextStyle(
         fontFamily = FontFamily.Default,
         fontWeight = FontWeight.Normal,
@@ -24,7 +24,7 @@ val gabbiFont = FontFamily(
 )
 
 
-val TypographyTitleBold = androidx.compose.material3.Typography(
+val TypographyTitleBold = Typography(
     titleLarge = TextStyle(
         fontFamily = gabbiFont,
         fontWeight = FontWeight.Bold,
@@ -47,6 +47,24 @@ val TypographyTitleBold = androidx.compose.material3.Typography(
         fontSize = 25.sp,
         lineHeight = 25.sp,
         letterSpacing = 0.5.sp,
+        color = Color.White
+    ),
+    bodyLarge = TextStyle(
+        fontFamily = gabbiFont,
+        fontWeight = FontWeight.Bold,
+        fontSize = 22.sp,
+        color = Color.White
+    ),
+    bodyMedium = TextStyle(
+        fontFamily = gabbiFont,
+        fontWeight = FontWeight.Bold,
+        fontSize = 20.sp,
+        color = Color.White
+    ),
+    bodySmall = TextStyle(
+        fontFamily = gabbiFont,
+        fontWeight = FontWeight.Bold,
+        fontSize = 18.sp,
         color = Color.White
     ),
     labelLarge = TextStyle(
