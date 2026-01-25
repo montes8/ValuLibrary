@@ -10,6 +10,7 @@ import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.items
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.text.style.TextAlign
@@ -26,6 +27,9 @@ fun ProductScreen(viewModel: AppViewModel = koinViewModel()) {
 
 
     val products = viewModel.listProducts
+    LaunchedEffect(Unit) {
+        viewModel.loadProduct()
+    }
 
     Column(modifier = Modifier.fillMaxSize()
         .background(Color.White)) {
@@ -37,7 +41,7 @@ fun ProductScreen(viewModel: AppViewModel = koinViewModel()) {
             )
             LazyColumn(
                 modifier = Modifier.fillMaxSize(),
-                contentPadding = PaddingValues(8.dp)
+                contentPadding = PaddingValues(12.dp)
             ) {
                 items(products) { product ->
                     RecipesItem(product)

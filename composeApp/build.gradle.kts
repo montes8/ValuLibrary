@@ -30,9 +30,6 @@ kotlin {
             implementation("com.google.android.material:material:1.12.0")
             implementation("com.pierfrancescosoffritti.androidyoutubeplayer:core:12.1.0")
 
-            // Core Navigation 3
-            implementation("androidx.navigation3:navigation3-runtime:1.1.0-alpha02")
-            implementation("androidx.navigation3:navigation3-ui:1.1.0-alpha02")
             implementation("org.jetbrains.kotlinx:kotlinx-serialization-json:1.7.3")
             implementation(libs.kotlinx.serialization.core)
 

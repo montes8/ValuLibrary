@@ -20,14 +20,16 @@ import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.layout.onGloballyPositioned
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
+import androidx.navigation.NavHostController
 import com.valu.valulibrary.component.CategoryItem
 import com.valu.valulibrary.component.tayToDp
 import com.valu.valulibrary.model.CategoryModel
+import com.valu.valulibrary.ui.nav.ScreenVale
 import com.valu.valulibrary.utils.TypographyTitleBold
 import com.valu.valulibrary.utils.orange_400
 
 @Composable
-fun MoresScreen (paddingValues: PaddingValues) {
+fun MoresScreen (navController: NavHostController) {
     var columnWidthPx by remember { mutableStateOf(0) }
 
     val utiles =
@@ -42,7 +44,7 @@ fun MoresScreen (paddingValues: PaddingValues) {
             CategoryModel(8,"Adicionales")
         )
     Column(modifier = Modifier.fillMaxSize()
-        .background(Color.White).padding(paddingValues)
+        .background(Color.White)
         .onGloballyPositioned { coordinates ->
         columnWidthPx = coordinates.size.width
         }) {
@@ -58,7 +60,9 @@ fun MoresScreen (paddingValues: PaddingValues) {
                 contentPadding = PaddingValues(8.dp) // Margen en los bordes de la pantalla
             ) {
                 items(utiles) { util ->
-                    CategoryItem(util,columnWidthPx.tayToDp)
+                    CategoryItem(util,columnWidthPx.tayToDp){ value ->
+                        navController.navigate(ScreenVale.ScreenDetail)
+                    }
                 }
             }
 

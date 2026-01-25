@@ -86,7 +86,8 @@ fun RecipesItem(model: Product){
         Row(
             modifier = Modifier
                 .fillMaxWidth()
-                .clickable { }.background(Color.White),
+                .clickable {
+                }.background(Color.White),
             // 1. Cambiamos a Alignment.Top para que todo empiece arriba
             verticalAlignment = Alignment.Top
         ) {
@@ -138,9 +139,14 @@ fun RecipesItem(model: Product){
 }
 
 @Composable
-fun CategoryItem(category: CategoryModel,width : Dp,marginItem : Dp = 12.dp) {
+fun CategoryItem(
+    category: CategoryModel, width: Dp, marginItem: Dp = 12.dp,
+    onItemClick: (CategoryModel) -> Unit
+) {
     Column( modifier = Modifier
-        .background(Color.White).padding(marginItem)) {
+        .background(Color.White).padding(marginItem).clickable{
+            onItemClick.invoke(category)
+        }) {
                 Card(
                     modifier = Modifier
                         .fillMaxWidth()
@@ -317,11 +323,7 @@ fun ValeGif(
 }
 
 
-@Composable
-fun currentRoute(navController: NavHostController): String? {
-    val navBackStackEntry by navController.currentBackStackEntryAsState()
-    return navBackStackEntry?.destination?.route
-}
+
 
 
 @Composable

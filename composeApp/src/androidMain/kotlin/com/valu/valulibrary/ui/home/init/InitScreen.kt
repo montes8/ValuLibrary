@@ -1,6 +1,7 @@
 package com.valu.valulibrary.ui.home.init
 
 import androidx.compose.foundation.background
+import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.PaddingValues
@@ -17,28 +18,15 @@ import androidx.compose.ui.text.TextStyle
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.text.style.TextDecoration
 import androidx.compose.ui.unit.dp
+import androidx.navigation.NavHostController
 import com.valu.valulibrary.component.VideoWebView
+import com.valu.valulibrary.ui.nav.ScreenVale
 import com.valu.valulibrary.utils.TypographyTitleBold
 import com.valu.valulibrary.utils.orange_400
 
 @Composable
-fun InitScreen(paddingValues: PaddingValues) {
+fun InitScreen(navController: NavHostController) {
     val scrollState = rememberScrollState()
-    val videoHtmlyoutube = """
-        <html>
-            <body style="margin:0;padding:0;background-color:black;">
-                <iframe 
-                    width="100%" 
-                    height="100%" 
-                    src="https://www.youtube.com/embed/hslIPUicucM?autoplay=1&modestbranding=1&rel=0" 
-                    frameborder="0" 
-                    allow="autoplay; encrypted-media; picture-in-picture" 
-                    allowfullscreen>
-                </iframe>
-            </body>
-        </html>
-    """.trimIndent()
-
     val videoHtml = """
         <html>
             <body style="margin:0;padding:0;background-color:black;">
@@ -87,16 +75,22 @@ fun InitScreen(paddingValues: PaddingValues) {
             Text(import,modifier =
                 Modifier.padding(top = 8.dp),color = Color.Cyan)
             Text("Terminos y condiciones",modifier =
-                Modifier.padding(top = 4.dp),color = Color.Blue,
+                Modifier.padding(top = 4.dp).clickable{
+                    navController.navigate(ScreenVale.ScreenTerm)
+                },color = Color.Blue,
+
                 style = TextStyle(
                     textDecoration = TextDecoration.Underline
                 ))
             Text("Sobre nostros",color = Color.Blue,
+                modifier = Modifier.clickable{
+                    navController.navigate(ScreenVale.ScreenAbout)
+
+                },
                 style = TextStyle(
                     textDecoration = TextDecoration.Underline
                 )
             )
         }
     }
-
 }

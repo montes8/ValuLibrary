@@ -11,15 +11,10 @@
     </style>
 
     <style name="SplashTheme" parent="Theme.PlayVale">
-        <item name="android:statusBarColor">@android:color/transparent</item>
-        <item name="android:windowBackground">@android:color/transparent</item>
-        <item name="android:windowIsTranslucent">true</item>
-        <item name="android:fitsSystemWindows">true</item>
-        <item name="android:windowSplashScreenAnimatedIcon" tools:ignore="NewApi">
-            @android:color/transparent
-        </item>
-        <item name="android:windowSplashScreenAnimationDuration" tools:ignore="NewApi">0</item>
-        <item name="android:windowLayoutInDisplayCutoutMode">shortEdges</item>
+        <item name="android:statusBarColor">@color/orange_100</item>
+        <item name="android:windowBackground">@color/orange_100</item>
+        <item name="android:windowSplashScreenBackground">@color/orange_100</item>
+
     </style>
 
         <style name="Theme.PlayValeLight" parent="Theme.AppCompat.Light.NoActionBar">
