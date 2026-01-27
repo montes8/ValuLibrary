@@ -10,7 +10,6 @@ import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material3.Icon
-import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
@@ -26,6 +25,13 @@ import androidx.compose.ui.unit.dp
 import androidx.navigation.NavGraph.Companion.findStartDestination
 import androidx.navigation.NavHostController
 import androidx.navigation.compose.currentBackStackEntryAsState
+import com.valu.uitaycompose.utils.tay_deep_orange_400
+import com.valu.uitaycompose.utils.tay_grey_300
+import com.valu.uitaycompose.utils.tay_grey_400
+import com.valu.uitaycompose.utils.textB12
+import com.valu.uitaycompose.utils.textB14
+import com.valu.uitaycompose.utils.textS12
+import com.valu.uitaycompose.utils.textS14
 import com.valu.valulibrary.ui.nav.TayDestinations
 @SuppressLint("SuspiciousIndentation")
 @Composable
@@ -104,12 +110,12 @@ fun CustomTabItem(
             Icon(
                 painter = painterResource(id = item.icon),
                 contentDescription = item.title,
-                tint = if (isSelected) Color.Magenta else Color.Gray
+                tint = if (isSelected) tay_deep_orange_400 else tay_grey_400
             )
             Text(
                 text = item.title,
-                color = if (isSelected) Color.Magenta else Color.Gray,
-                style = MaterialTheme.typography.labelLarge
+                color = if (isSelected) tay_deep_orange_400 else tay_grey_400,
+                style = textS12
             )
         }
 }

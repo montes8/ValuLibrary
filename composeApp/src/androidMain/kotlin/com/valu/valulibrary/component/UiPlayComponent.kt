@@ -15,7 +15,6 @@ import androidx.compose.foundation.layout.width
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material3.Card
 import androidx.compose.material3.CardDefaults
-import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
@@ -28,23 +27,15 @@ import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.Dp
 import androidx.compose.ui.unit.dp
 import com.valu.uitaycompose.swipe.UiTayUrlImage
+import com.valu.uitaycompose.utils.UI_EMPTY
 import com.valu.uitaycompose.utils.extension.uiTayDriveUrl
 import com.valu.uitaycompose.utils.tay_deep_orange_400
 import com.valu.uitaycompose.utils.tay_orange_400
-import com.valu.uitaycompose.utils.textGabbi12
 import com.valu.uitaycompose.utils.textGabbi14
-import com.valu.uitaycompose.utils.textGabbi16
-import com.valu.uitaycompose.utils.textGabbi18
 import com.valu.uitaycompose.utils.textGabbiB16
-import com.valu.uitaycompose.utils.textGabbiB18
 import com.valu.uitaycompose.utils.textGabbiB20
-import com.valu.uitaycompose.utils.textM10
 import com.valu.uitaycompose.utils.textM12
-import com.valu.uitaycompose.utils.textM14
 import com.valu.uitaycompose.utils.textS14
-import com.valu.uitaycompose.utils.textS16
-import com.valu.uitaycompose.utils.textSe14
-import com.valu.uitaycompose.utils.textSe16
 import com.valu.valulibrary.R
 import com.valu.valulibrary.model.CategoryModel
 import com.valu.valulibrary.model.Product
@@ -66,16 +57,16 @@ fun ItemProduct(model: Product){
             verticalAlignment = Alignment.Top
         ) {
             UiTayUrlImage(
-                url = uiTayDriveUrl("https://drive.google.com/file/d/1hp8ma3xqNWVq1LGnE9MOS1ndil7atKUS/view"),
-                modifier= Modifier.width(120.dp).height(120.dp))
+                url = uiTayDriveUrl(model.url?:UI_EMPTY),
+                modifier= Modifier.width(120.dp).height(130.dp))
             Column(
                 modifier = Modifier
                     .weight(1f)
-                    .height(120.dp).padding(top = 6.dp, start = 6.dp, end = 6.dp, bottom = 4.dp),
+                    .height(120.dp).padding(top = 6.dp, start = 6.dp, end = 6.dp),
                 verticalArrangement = Arrangement.SpaceBetween
             ) {
                 Text(
-                    text ="Alpha cuadriculado 70h",
+                    text =model.name?:UI_EMPTY,
                     maxLines = 1,
                     style = textGabbiB16,
                     color = tay_deep_orange_400
@@ -83,18 +74,18 @@ fun ItemProduct(model: Product){
 
                 Spacer(modifier = Modifier.height(4.dp))
                 Text(
-                    text = "Precio: S/ 4.00",
+                    text = "Precio: S/ ${model.price?:UI_EMPTY}",
                     maxLines = 1,
                     style = textS14,
                     color = Color.Black
                 )
                 Spacer(modifier = Modifier.height(2.dp))
                 Text(
-                    text = "cuaderno alpha cuadriculado de 70 hojas,con una tapa de cartón flexible de colores brillante, hojas resistentes.",
+                    text = model.description?:UI_EMPTY,
                     modifier = Modifier
                         .weight(1f),
                     maxLines = 4,
-                    style = textM12,
+                    style = textGabbi14,
                     color = Color.Black
                 )
 

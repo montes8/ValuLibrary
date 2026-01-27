@@ -6,8 +6,8 @@
     </style>
 
     <style name="SplashTheme" parent="Theme.PlayVale">
-        <item name="android:windowBackground">@color/ui_tay_white</item>
-        <item name="android:windowSplashScreenBackground" tools:ignore="NewApi">@color/ui_tay_white</item>
+        <item name="android:windowBackground">@color/primary_Accent</item>
+        <item name="android:windowSplashScreenBackground" tools:ignore="NewApi">@color/primary_Accent</item>
         <item name="android:windowSplashScreenAnimatedIcon" tools:ignore="NewApi">@drawable/logo_content</item>
     </style>
 

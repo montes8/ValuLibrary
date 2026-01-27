@@ -13,7 +13,6 @@ class ApplicationLibrary: Application()  {
     }
     override fun onCreate() {
         super.onCreate()
-        //myApplicationContext = this
         appContextTaySure = this
         initKoin(appDeclaration = {
             androidContext(this@ApplicationLibrary)

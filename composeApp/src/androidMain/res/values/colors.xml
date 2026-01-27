@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
 
-    <color name="primary_Accent">#FFAB91</color>
-    <color name="primary_secondary">#FFAB91</color>
-    <color name="primary_pink">#FFAB91</color>
+    <color name="primary_Accent">#FFCCBC</color>
+    <color name="primary_secondary">#FFCCBC</color>
+    <color name="primary_pink">#FFCCBC</color>
 
 
     <color name="pink_50">#FCE4E4</color>
