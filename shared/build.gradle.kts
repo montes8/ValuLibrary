@@ -12,7 +12,7 @@ plugins {
 buildConfig {
     //packageName.set("com.tu.app")
     // Define las variables que necesitas
-    buildConfigField("String", "BASE_URL_SERVICE", "\"servertayrelease.onrender.com\"")
+    buildConfigField("String", "BASE_URL_SERVICE", "\"servertay.onrender.com\"")
     buildConfigField("String", "BASE_URL_SERVICE_DEV", "\"servertay.onrender.com\"")
     // Esta lógica detecta si la tarea de Gradle actual es de 'Debug'
     val isDebug = project.gradle.startParameter.taskNames.any { it.contains("Debug", ignoreCase = true) }

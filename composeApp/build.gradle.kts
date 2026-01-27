@@ -79,7 +79,7 @@ android {
     buildTypes {
         getByName("release") {
             isMinifyEnabled = true
-            isDebuggable = true
+            isDebuggable = false
             signingConfig = signingConfigs.getByName("release")
             proguardFiles(
                 getDefaultProguardFile("proguard-android-optimize.txt"),
