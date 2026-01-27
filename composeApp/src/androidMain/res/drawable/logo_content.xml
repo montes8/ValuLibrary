@@ -1,26 +1,17 @@
 <?xml version="1.0" encoding="utf-8"?>
-<vector xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:aapt="http://schemas.android.com/aapt"
-    android:width="108dp"
-    android:height="108dp"
-    android:viewportWidth="108"
-    android:viewportHeight="108">
+<layer-list xmlns:android="http://schemas.android.com/apk/res/android">
 
-    <group
-        android:name="grupo_animado"
-        android:pivotX="54"
-        android:pivotY="54">
+    <item>
+        <shape android:shape="oval">
+            <solid android:color="#FFFFFF" />
+            <size android:width="56dp" android:height="56dp" />
+        </shape>
+    </item>
 
-        <path android:pathData="M0,0h108v108h-108z">
-            <aapt:attr name="android:fillColor">
-                <gradient android:type="linear">
-                    <item android:color="#00000000" android:offset="0"/>
-                </gradient>
-            </aapt:attr>
-        </path>
+    <item
+        android:drawable="@drawable/logo"
+        android:width="56dp"
+        android:height="56dp"
+        android:gravity="center" />
 
-        <group>
-            <clip-path android:pathData="M0,0h108v108h-108z"/>
-        </group>
-    </group>
-</vector>
+</layer-list>

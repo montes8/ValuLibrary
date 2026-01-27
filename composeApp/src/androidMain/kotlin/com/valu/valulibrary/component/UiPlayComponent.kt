@@ -29,6 +29,7 @@ import androidx.compose.ui.unit.dp
 import com.valu.uitaycompose.swipe.UiTayUrlImage
 import com.valu.uitaycompose.utils.UI_EMPTY
 import com.valu.uitaycompose.utils.extension.uiTayDriveUrl
+import com.valu.uitaycompose.utils.extension.uiTayNoRippleClickable
 import com.valu.uitaycompose.utils.tay_deep_orange_400
 import com.valu.uitaycompose.utils.tay_orange_400
 import com.valu.uitaycompose.utils.textGabbi14
@@ -106,14 +107,14 @@ fun CategoryItem(
     onItemClick: (CategoryModel) -> Unit
 ) {
     Column( modifier = Modifier
-        .background(Color.White).padding(marginItem).clickable{
-            onItemClick.invoke(category)
-        }) {
+        .background(Color.White).padding(marginItem)) {
                 Card(
                     modifier = Modifier
                         .fillMaxWidth()
                         .height(width / 2 - marginItem * 3)
-                        .background(Color.White),
+                        .background(Color.White).uiTayNoRippleClickable{
+                            onItemClick.invoke(category)
+                        },
                     shape = RoundedCornerShape(12.dp),
                     elevation = CardDefaults.cardElevation(defaultElevation = 12.dp)
                 ) {

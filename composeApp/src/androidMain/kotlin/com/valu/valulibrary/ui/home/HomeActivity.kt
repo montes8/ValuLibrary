@@ -1,7 +1,9 @@
 package com.valu.valulibrary.ui.home
 
+import android.annotation.SuppressLint
 import android.content.Context
 import android.content.Intent
+import android.content.pm.ActivityInfo
 import android.os.Bundle
 import androidx.activity.compose.setContent
 import androidx.appcompat.app.AppCompatActivity
@@ -21,8 +23,10 @@ class HomeActivity : AppCompatActivity() {
             context.startActivity(intent)
         }
     }
+    @SuppressLint("SourceLockedOrientationActivity")
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
+        setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_PORTRAIT)
         viewModel.updateProduct()
         setContent {
             ValeTheme {
