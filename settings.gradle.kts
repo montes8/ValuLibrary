@@ -30,3 +30,5 @@ dependencyResolutionManagement {
 
 include(":composeApp")
 include(":shared")
+include(":uitaycompose")
+project(":uitaycompose").projectDir = File(settingsDir, "../TayComposeLibrary/uitaycompose")

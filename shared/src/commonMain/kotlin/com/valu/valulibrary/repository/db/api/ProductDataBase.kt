@@ -13,8 +13,13 @@ class ProductDataBase(private val productDao: ProductDao): IProductDataBase {
     }
 
     override suspend fun getProductAll(): List<Product> {
-        return ProductEntity.toListModel(productDao.getProductAll())
+        return ProductEntity.toListModel(productDao.getProductsPrincipal())
     }
+
+    override suspend fun getProductAllCategory(id: String): List<Product> {
+        return ProductEntity.toListModel(productDao.getProductsByCategory(id))
+    }
+
     override suspend fun deleteContactAll() {
         productDao.deleteProductAll()
     }

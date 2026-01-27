@@ -23,7 +23,7 @@ class HomeActivity : AppCompatActivity() {
     }
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        viewModel.loadProduct()
+        viewModel.updateProduct()
         setContent {
             ValeTheme {
                   ValeNavigationMain()

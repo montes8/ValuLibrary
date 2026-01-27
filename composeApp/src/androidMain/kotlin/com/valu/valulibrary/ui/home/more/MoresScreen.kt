@@ -21,18 +21,18 @@ import androidx.compose.ui.layout.onGloballyPositioned
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
 import androidx.navigation.NavHostController
+import com.valu.uitaycompose.utils.tay_deep_orange_400
+import com.valu.uitaycompose.utils.textGabbiB25
 import com.valu.valulibrary.component.CategoryItem
 import com.valu.valulibrary.component.tayToDp
 import com.valu.valulibrary.model.CategoryModel
 import com.valu.valulibrary.ui.nav.ScreenVale
-import com.valu.valulibrary.utils.TypographyTitleBold
-import com.valu.valulibrary.utils.orange_400
 
 @Composable
-fun MoresScreen (navController: NavHostController) {
+fun MoresScreen (navController: NavHostController,paddingValues: PaddingValues) {
     var columnWidthPx by remember { mutableStateOf(0) }
 
-    val utiles =
+    val items =
         listOf( CategoryModel(0,"Cuadernos"),
             CategoryModel(1,"Papeleria"),
             CategoryModel(2,"Escritura"),
@@ -44,24 +44,23 @@ fun MoresScreen (navController: NavHostController) {
             CategoryModel(8,"Adicionales")
         )
     Column(modifier = Modifier.fillMaxSize()
-        .background(Color.White)
+        .background(Color.White).padding(paddingValues)
         .onGloballyPositioned { coordinates ->
         columnWidthPx = coordinates.size.width
         }) {
 
-        Text("Categorias de Utiles",modifier =
+        Text("Buscalo por Categorias",modifier =
             Modifier.padding(top = 12.dp).fillMaxWidth(),textAlign= TextAlign.Center,
-            style = TypographyTitleBold.titleSmall, color = orange_400
+            style = textGabbiB25, color = tay_deep_orange_400
         )
             LazyVerticalGrid(
-                // 'Fixed(2)' define exactamente 2 columnas
                 columns = GridCells.Fixed(2),
                 modifier = Modifier.fillMaxSize(),
-                contentPadding = PaddingValues(8.dp) // Margen en los bordes de la pantalla
+                contentPadding = PaddingValues(8.dp)
             ) {
-                items(utiles) { util ->
+                items(items) { util ->
                     CategoryItem(util,columnWidthPx.tayToDp){ value ->
-                        navController.navigate(ScreenVale.ScreenDetail)
+                        navController.navigate(ScreenVale.ScreenDetail(value.uiId.toString(),value.name))
                     }
                 }
             }

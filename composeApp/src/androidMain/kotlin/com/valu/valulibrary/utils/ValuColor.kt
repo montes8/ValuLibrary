@@ -1,10 +1,7 @@
 package com.valu.valulibrary.utils
 
-import androidx.compose.ui.graphics.Color
+import com.valu.uitaycompose.utils.tay_deep_orange_200
+import com.valu.uitaycompose.utils.tay_orange_100
 
 
-val primaryAccent = Color(0xFFFBE9E7)
-val orange_400 = Color(0xFFFF7043)
-val orange_300 = Color(0xFFFF8A65)
-val orange_200 = Color(0xFFFFAB91)
-val orange_50 = Color(0xFFFBE9E7)
+val primaryAccent = tay_deep_orange_200

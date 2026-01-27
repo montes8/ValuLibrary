@@ -1,9 +1,14 @@
 <resources>
     <string name="app_name">ValuLibrary</string>
-
     <string name="tb_title_home">Libreria Valu</string>
-
     <string name="text_title_splash">Bienvenidos a \nLibreria</string>
     <string name="text_sub_title_splash">Valu</string>
+    <string name="text_description">
+    🎒 ¡Arma tu mochila con lo mejor!\nSi necesitas lo básico para el colegio, ¡aquí lo tenemos!\n
+        Tenemos útiles que no fallan para tus tareas:\n\n• Lápices y lapiceros suaves.\n• Cuadernos rayados y cuadriculados.\n
+    • Borradores que no manchan y tajadores con punta fina.\n• Reglas, tijeras y goma en barra.\n
+        • Colores brillantes y resaltadores.\n\n¡Ven por lo que te falta! ✨
+    </string>
+    <string name="text_note">¡Importante!\n\n• Los precios sin internet son referenciales.</string>
 
 </resources>

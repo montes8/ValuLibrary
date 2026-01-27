@@ -17,16 +17,22 @@ class AppViewModel(private val dataUseCase: DataUseCase):BaseViewModel() {
     val listProducts = mutableStateListOf<Product>()
     fun loadValidateLogin(){
         execute {
-            var resposne = dataUseCase.loadData()
+            val response = dataUseCase.loadData()
             _eventFlow.emit(InitUiEvent.NavigateToNext())
         }
     }
 
     fun loadProduct(){
         execute {
-            var resposne = dataUseCase.getProduct()
-            listProducts.addAll(resposne)
+            val response = dataUseCase.getProduct()
+            listProducts.addAll(response)
 
+        }
+    }
+
+    fun updateProduct(){
+        execute {
+             dataUseCase.updateData()
         }
     }
 

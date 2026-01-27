@@ -15,36 +15,33 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
-import com.valu.valulibrary.component.RecipesItem
+import com.valu.uitaycompose.utils.tay_deep_orange_400
+import com.valu.uitaycompose.utils.textGabbiB25
+import com.valu.valulibrary.component.ItemProduct
 import com.valu.valulibrary.ui.AppViewModel
-import com.valu.valulibrary.utils.TypographySubTitleGabbi
-import com.valu.valulibrary.utils.TypographyTitleBold
-import com.valu.valulibrary.utils.orange_400
 import org.koin.compose.viewmodel.koinViewModel
 
 @Composable
-fun ProductScreen(viewModel: AppViewModel = koinViewModel()) {
-
+fun ProductScreen(paddingValues: PaddingValues,viewModel: AppViewModel = koinViewModel()) {
 
     val products = viewModel.listProducts
     LaunchedEffect(Unit) {
         viewModel.loadProduct()
     }
-
     Column(modifier = Modifier.fillMaxSize()
-        .background(Color.White)) {
+        .background(Color.White).padding(paddingValues)) {
 
-        Column() {
+        Column {
             Text("Utiles mas pedidos",modifier =
                 Modifier.padding(top = 12.dp).fillMaxWidth(),textAlign= TextAlign.Center,
-                style = TypographyTitleBold.titleSmall, color = orange_400
+                style = textGabbiB25, color = tay_deep_orange_400
             )
             LazyColumn(
                 modifier = Modifier.fillMaxSize(),
                 contentPadding = PaddingValues(12.dp)
             ) {
                 items(products) { product ->
-                    RecipesItem(product)
+                    ItemProduct(product)
                 }
             }
         }

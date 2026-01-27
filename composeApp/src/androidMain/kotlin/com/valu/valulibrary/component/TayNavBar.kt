@@ -1,5 +1,6 @@
 package com.valu.valulibrary.component
 
+import android.annotation.SuppressLint
 import androidx.compose.foundation.background
 import androidx.compose.foundation.gestures.detectTapGestures
 import androidx.compose.foundation.layout.Arrangement
@@ -26,6 +27,7 @@ import androidx.navigation.NavGraph.Companion.findStartDestination
 import androidx.navigation.NavHostController
 import androidx.navigation.compose.currentBackStackEntryAsState
 import com.valu.valulibrary.ui.nav.TayDestinations
+@SuppressLint("SuspiciousIndentation")
 @Composable
 fun TayCustomBottomBar(
     navController: NavHostController,
@@ -39,20 +41,16 @@ fun TayCustomBottomBar(
                                 drawIntoCanvas { canvas ->
                                     val paint = Paint()
                                     val frameworkPaint = paint.asFrameworkPaint()
-
-                                    // Configuramos la sombra manualmente
-                                    frameworkPaint.color = android.graphics.Color.WHITE // Color del fondo
+                                    frameworkPaint.color = android.graphics.Color.WHITE
                                     frameworkPaint.setShadowLayer(
-                                        25f,     // Radio de difuminado (Blur)
-                                        0f,      // Desplazamiento X
-                                        -4f,    // Desplazamiento Y (Hacia ARRIBA)
+                                        25f,
+                                        0f,
+                                        -4f,
                                         android.graphics.Color.argb(50, 0, 0, 0) // Color de sombra (negro suave)
                                     )
-
-                                    // Dibujamos el rectángulo con la sombra
                                     canvas.drawRoundRect(
                                         0f, 0f, size.width, size.height,
-                                        60f, 60f, // Radio de las esquinas
+                                        60f, 60f,
                                         paint
                                     )
                                 }
@@ -95,7 +93,6 @@ fun CustomTabItem(
     isSelected: Boolean,
     onClick: () -> Unit
 ) {
-
         Column(modifier = Modifier.pointerInput(Unit) {
             detectTapGestures(
                 onTap = { onClick() }

@@ -1,5 +1,6 @@
 package com.valu.valulibrary.ui.splash
 
+import android.annotation.SuppressLint
 import android.app.Activity
 import androidx.compose.animation.core.LinearEasing
 import androidx.compose.animation.core.animateDpAsState
@@ -29,19 +30,20 @@ import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.graphicsLayer
 import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.platform.LocalContext
-import androidx.compose.ui.res.colorResource
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
+import com.valu.uitaycompose.swipe.UiTayGif
+import com.valu.uitaycompose.utils.tay_deep_orange_400
+import com.valu.uitaycompose.utils.textGabbi16
+import com.valu.uitaycompose.utils.textGabbiB30
 import com.valu.valulibrary.R
-import com.valu.valulibrary.component.ValeGif
 import com.valu.valulibrary.ui.AppViewModel
 import com.valu.valulibrary.ui.home.HomeActivity
-import com.valu.valulibrary.utils.TypographySubTitleGabbi
-import com.valu.valulibrary.utils.TypographyTitleBold
 import kotlinx.coroutines.flow.collectLatest
 
+@SuppressLint("ContextCastToActivity")
 @Composable
 fun ScreenMySplash(viewModel: AppViewModel) {
     val context = LocalContext.current as Activity
@@ -100,7 +102,7 @@ fun ScreenMySplash(viewModel: AppViewModel) {
             Box( modifier = Modifier
                 .offset(y = offset)
                 .graphicsLayer()) {
-                ValeGif(
+                UiTayGif(
                     resId = R.drawable.gif_splash,
                      width =  150.dp,
                      height = 150.dp
@@ -114,15 +116,15 @@ fun ScreenMySplash(viewModel: AppViewModel) {
             Text(
                 text = stringResource(R.string.text_title_splash),
                 textAlign = TextAlign.Center,
-                style = TypographyTitleBold.titleSmall,
-                color = colorResource(R.color.primary_Accent)
+                style = textGabbiB30,
+                color = tay_deep_orange_400
             )
             Text(
                 modifier = Modifier.padding(top = 10.dp),
-                color = colorResource(R.color.primary_Accent),
+                color = tay_deep_orange_400,
                 text = stringResource(R.string.text_sub_title_splash),
                 textAlign = TextAlign.Center,
-                style = TypographyTitleBold.titleMedium,
+                style = textGabbiB30
 
                 )
             Spacer(
@@ -144,7 +146,7 @@ fun ScreenMySplash(viewModel: AppViewModel) {
                 color = Color.Black,
                 text = "version 1.0",
                 textAlign = TextAlign.Center,
-                style = TypographySubTitleGabbi.labelSmall
+                style = textGabbi16
             )
         }
     }

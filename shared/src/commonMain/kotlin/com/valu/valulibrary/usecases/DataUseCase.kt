@@ -10,7 +10,20 @@ class DataUseCase(private val iDataNetwork : IDataNetwork,
 
     @Suppress("SuspiciousIndentation")
     suspend fun loadData(): Boolean{
-      val response =  iDataNetwork.loadData()
+        val dataDb =  getProduct()
+        return if (dataDb.isEmpty()){
+            getProductService()
+        }else{
+            dataDb.isNotEmpty()
+        }
+    }
+
+    suspend fun updateData(){
+          getProductService()
+    }
+
+    suspend fun getProductService():Boolean{
+        val response =  iDataNetwork.loadData()
         deleteProduct()
         return insertProduct(response)
     }
@@ -20,6 +33,7 @@ class DataUseCase(private val iDataNetwork : IDataNetwork,
 
     suspend fun getProduct() = iProductDataBase.getProductAll()
 
-    suspend fun saveLocations() = iDataNetwork.saveLocation()
+    suspend fun getProductAllCategory(id: String) = iProductDataBase.getProductAllCategory(id)
+
 
 }

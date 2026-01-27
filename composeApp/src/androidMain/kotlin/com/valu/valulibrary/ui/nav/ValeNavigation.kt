@@ -1,42 +1,48 @@
 package com.valu.valulibrary.ui.nav
 
 import androidx.compose.animation.ExitTransition
+import androidx.compose.foundation.layout.PaddingValues
 import androidx.compose.runtime.Composable
 import androidx.navigation.NavHostController
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import androidx.navigation.compose.rememberNavController
+import androidx.navigation.toRoute
 import com.valu.valulibrary.R
-import com.valu.valulibrary.ui.about.ScreenAboutUs
 import com.valu.valulibrary.ui.detail.ScreenDetail
 import com.valu.valulibrary.ui.home.ScreenHome
 import com.valu.valulibrary.ui.home.init.InitScreen
 import com.valu.valulibrary.ui.home.more.MoresScreen
 import com.valu.valulibrary.ui.home.product.ProductScreen
-import com.valu.valulibrary.ui.term.ScreenTerm
+import kotlinx.serialization.Serializable
 
 @Composable
 fun ValeNavigationMain(navController: NavHostController = rememberNavController()) {
-    NavHost(navController = navController, startDestination = ScreenVale.HomeScreen.route,
-        exitTransition = {
-            ExitTransition.None
-        }) {
-        composable(ScreenVale.HomeScreen.route) { ScreenHome(navController)}
-        composable(ScreenVale.ScreenTerm.route) { ScreenTerm()}
-        composable(ScreenVale.ScreenAbout.route) { ScreenAboutUs()}
-        composable(ScreenVale.ScreenDetail.route) { ScreenDetail()}
+    NavHost(
+        navController = navController,
+        startDestination = ScreenVale.HomeScreen,
+        exitTransition = { ExitTransition.None }
+    ) {
+        composable<ScreenVale.HomeScreen> {
+            ScreenHome(navController)
+        }
+
+        composable<ScreenVale.ScreenDetail> { backStackEntry ->
+            val detailArgs = backStackEntry.toRoute<ScreenVale.ScreenDetail>()
+
+            ScreenDetail(id = detailArgs.categoryId, name = detailArgs.name)
+        }
     }
 }
 
 
-
+@Serializable
 sealed class ScreenVale(
-    val route: String
 ) {
-    data object HomeScreen: ScreenVale("home_screen")
-    data object ScreenTerm: ScreenVale("term_screen")
-    data object ScreenAbout: ScreenVale("about_screen")
-    data object ScreenDetail: ScreenVale("detail_screen")
+    @Serializable
+    data object HomeScreen: ScreenVale()
+    @Serializable
+    data class ScreenDetail(val categoryId: String, val name: String): ScreenVale()
 }
 
 sealed class TayDestinations(
@@ -52,16 +58,16 @@ sealed class TayDestinations(
 
 @Composable
 fun NavigationNavBarHost(  navController: NavHostController = rememberNavController(),
-                           navControllerMain: NavHostController = rememberNavController()
+                           navControllerMain: NavHostController = rememberNavController(),paddingValues: PaddingValues
 ) {
 
     NavHost(navController = navController, startDestination = TayDestinations.InitNavScreen.route,
         exitTransition = {
             ExitTransition.None
         }) {
-        composable(TayDestinations.InitNavScreen.route) { InitScreen(navControllerMain)}
-        composable(TayDestinations.ProductNavScreen.route) { ProductScreen()}
-        composable(TayDestinations.MoreNavScreen.route) {MoresScreen(navControllerMain) }
+        composable(TayDestinations.InitNavScreen.route) { InitScreen(paddingValues)}
+        composable(TayDestinations.ProductNavScreen.route) { ProductScreen(paddingValues)}
+        composable(TayDestinations.MoreNavScreen.route) {MoresScreen(navControllerMain,paddingValues) }
     }
 }
 

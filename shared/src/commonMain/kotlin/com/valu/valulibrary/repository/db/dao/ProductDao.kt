@@ -18,7 +18,9 @@ interface ProductDao {
     @Query("SELECT * FROM ProductEntity WHERE category = :category")
     suspend fun getProductsByCategory(category: String): List<ProductEntity>
 
-    // Busca cualquier producto cuya categoría CONTENGA la palabra enviada
+    @Query("SELECT * FROM ProductEntity WHERE principal = true")
+    suspend fun getProductsPrincipal(): List<ProductEntity>
+
     @Query("SELECT * FROM ProductEntity WHERE category LIKE '%' || :search || '%'")
     suspend fun searchByCategory(search: String): List<ProductEntity>
 

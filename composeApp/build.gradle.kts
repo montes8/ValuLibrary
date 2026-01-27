@@ -29,11 +29,10 @@ kotlin {
             implementation("io.insert-koin:koin-compose-viewmodel:4.0.0")
             implementation("com.google.android.material:material:1.12.0")
             implementation("com.pierfrancescosoffritti.androidyoutubeplayer:core:12.1.0")
-
             implementation("org.jetbrains.kotlinx:kotlinx-serialization-json:1.7.3")
             implementation(libs.kotlinx.serialization.core)
-
             implementation("io.ktor:ktor-client-okhttp:3.1.1")
+            implementation(project(":uitaycompose"))
         }
         commonMain.dependencies {
             implementation(compose.runtime)
