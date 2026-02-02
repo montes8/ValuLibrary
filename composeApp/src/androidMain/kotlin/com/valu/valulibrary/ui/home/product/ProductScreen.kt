@@ -13,6 +13,7 @@ import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.platform.testTag
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
 import com.valu.uitaycompose.utils.tay_deep_orange_400
@@ -37,7 +38,7 @@ fun ProductScreen(paddingValues: PaddingValues,viewModel: AppViewModel = koinVie
                 style = textGabbiB25, color = tay_deep_orange_400
             )
             LazyColumn(
-                modifier = Modifier.fillMaxSize(),
+                modifier = Modifier.fillMaxSize().testTag("product_list"),
                 contentPadding = PaddingValues(12.dp)
             ) {
                 items(products) { product ->

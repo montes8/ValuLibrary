@@ -57,25 +57,25 @@ data class ProductEntity(
 
         fun  toListModel(data : List<ProductEntity>) = data.map { it ->
             Product(
-                uid = it.uid?:"",
-                name = it.name?:"",
-                description = it.description?:"",
-                category = it.category?:"",
-                price = it.price?:"",
-                priceTwo = it.priceTwo?:"",
-                state = it.state?:false,
-                url = it.url?:"",
-                phone = it.phone?:"",
-                principal = it.principal?:false,
-                admin = it.admin?:false,
-                countryCode = it.countryCode?:"",
-                district = it.district?:"",
-                longitude = it.longitude?:"",
-                latitude = it.latitude?:"",
-                limitDistance = it.limitDistance?:"",
-                banner = it.banner?:false,
-                click = it.click?:false,
-                sellerClient = it.sellerClient?:""
+                uid = it.uid,
+                name = it.name,
+                description = it.description,
+                category = it.category,
+                price = it.price,
+                priceTwo = it.priceTwo,
+                state = it.state,
+                url = it.url,
+                phone = it.phone,
+                principal = it.principal,
+                admin = it.admin,
+                countryCode = it.countryCode,
+                district = it.district,
+                longitude = it.longitude,
+                latitude = it.latitude,
+                limitDistance = it.limitDistance,
+                banner = it.banner,
+                click = it.click,
+                sellerClient = it.sellerClient
             )
         }
     }

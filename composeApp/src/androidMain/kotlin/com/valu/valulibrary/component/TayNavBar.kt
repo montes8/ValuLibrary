@@ -22,24 +22,24 @@ import androidx.compose.ui.graphics.drawscope.drawIntoCanvas
 import androidx.compose.ui.input.pointer.pointerInput
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.unit.dp
+import androidx.navigation.NavDestination.Companion.hasRoute
+import androidx.navigation.NavDestination.Companion.hierarchy
 import androidx.navigation.NavGraph.Companion.findStartDestination
 import androidx.navigation.NavHostController
 import androidx.navigation.compose.currentBackStackEntryAsState
 import com.valu.uitaycompose.utils.tay_deep_orange_400
-import com.valu.uitaycompose.utils.tay_grey_300
 import com.valu.uitaycompose.utils.tay_grey_400
-import com.valu.uitaycompose.utils.textB12
-import com.valu.uitaycompose.utils.textB14
 import com.valu.uitaycompose.utils.textS12
-import com.valu.uitaycompose.utils.textS14
 import com.valu.valulibrary.ui.nav.TayDestinations
+
 @SuppressLint("SuspiciousIndentation")
 @Composable
 fun TayCustomBottomBar(
     navController: NavHostController,
     items: List<TayDestinations>
 ) {
-    val currentRoute = currentRoute(navController)
+    val navBackStackEntry by navController.currentBackStackEntryAsState()
+    val currentDestination = navBackStackEntry?.destination
                     Row(
                         modifier = Modifier
                             .fillMaxWidth()
@@ -52,7 +52,7 @@ fun TayCustomBottomBar(
                                         25f,
                                         0f,
                                         -4f,
-                                        android.graphics.Color.argb(50, 0, 0, 0) // Color de sombra (negro suave)
+                                        android.graphics.Color.argb(50, 0, 0, 0)
                                     )
                                     canvas.drawRoundRect(
                                         0f, 0f, size.width, size.height,
@@ -75,16 +75,17 @@ fun TayCustomBottomBar(
                             verticalAlignment = Alignment.CenterVertically
                         ) {
                             items.forEach { item ->
-                                val isSelected = currentRoute == item.route
+                                val isSelected = currentDestination?.hierarchy?.any { it.hasRoute(item.route::class) } == true
                                 CustomTabItem(
                                     item = item,
                                     isSelected = isSelected,
                                     onClick = {
                                         navController.navigate(item.route) {
-                                            popUpTo(navController.graph.findStartDestination().id){
+                                            popUpTo(navController.graph.findStartDestination().id) {
                                                 saveState = true
                                             }
                                             launchSingleTop = true
+                                            restoreState = true
                                         }
                                     }
                                 )
@@ -118,10 +119,4 @@ fun CustomTabItem(
                 style = textS12
             )
         }
-}
-
-@Composable
-fun currentRoute(navController: NavHostController): String? {
-    val navBackStackEntry by navController.currentBackStackEntryAsState()
-    return navBackStackEntry?.destination?.route
 }

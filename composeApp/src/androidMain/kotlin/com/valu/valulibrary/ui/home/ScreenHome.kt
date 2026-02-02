@@ -7,7 +7,7 @@ import androidx.compose.ui.res.stringResource
 import androidx.navigation.NavHostController
 import androidx.navigation.compose.rememberNavController
 import com.valu.uitaycompose.extra.UiTayCToolBar
-import com.valu.uitaycompose.model.UiTayToolBarModel
+import com.valu.uitaycompose.model.UiToolBarModel
 import com.valu.uitaycompose.utils.tay_deep_orange_200
 import com.valu.valulibrary.R
 import com.valu.valulibrary.component.TayCustomBottomBar
@@ -26,8 +26,10 @@ fun ScreenHome(navControllerMain: NavHostController) {
 
     Scaffold(
         topBar = {
-            UiTayCToolBar(uiTayText = stringResource(R.string.tb_title_home), uiTayModifier = UiTayToolBarModel(
-                uiBgColor = tay_deep_orange_200, uiTypeStart = false, uiTypeEnd = false)) {
+            UiTayCToolBar(uiTayText = stringResource(R.string.tb_title_home), uiTayModifier = UiToolBarModel(
+                uiBgColor = tay_deep_orange_200, uiTypeStart = false, uiTypeEnd = false
+            )
+            ) {
             }
         },
         bottomBar = {

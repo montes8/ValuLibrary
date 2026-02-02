@@ -9,4 +9,6 @@ plugins {
     alias(libs.plugins.kotlinAndroid) apply false
     alias(libs.plugins.ksp) apply false
     id("com.github.gmazzo.buildconfig") version "5.6.8" apply false
+    alias(libs.plugins.androidTest) apply false
+    alias(libs.plugins.baselineprofile) apply false
 }

@@ -34,7 +34,6 @@ import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
-import com.pierfrancescosoffritti.androidyoutubeplayer.BuildConfig
 import com.valu.uitaycompose.swipe.UiTayGif
 import com.valu.uitaycompose.utils.tay_deep_orange_400
 import com.valu.uitaycompose.utils.textGabbi16
@@ -114,7 +113,7 @@ fun ScreenMySplash(viewModel: AppViewModel) {
 
             Column(
                 modifier = Modifier
-                    .padding(top = 20.dp)
+                    .padding(top = 20.dp, start = 10.dp)
                     .offset(y = offsetBottom)
                     .graphicsLayer(alpha = opacity),
                 horizontalAlignment = Alignment.CenterHorizontally

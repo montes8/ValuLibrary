@@ -7,6 +7,7 @@ plugins {
     alias(libs.plugins.composeCompiler)
     id("org.jetbrains.kotlin.plugin.serialization") version "1.9.20" // Usa tu versión de Kotlin
     id("kotlin-parcelize")
+    alias(libs.plugins.baselineprofile)
 }
 
 kotlin {
@@ -80,6 +81,7 @@ android {
         getByName("release") {
             isMinifyEnabled = true
             isDebuggable = false
+            matchingFallbacks += listOf("release")
             signingConfig = signingConfigs.getByName("release")
             proguardFiles(
                 getDefaultProguardFile("proguard-android-optimize.txt"),
@@ -98,10 +100,25 @@ android {
         sourceCompatibility = JavaVersion.VERSION_17
         targetCompatibility = JavaVersion.VERSION_17
     }
+
+    kotlin {
+        jvmToolchain(17)
+    }
 }
 
 dependencies {
+    implementation(libs.androidx.profileinstaller)
+    "baselineProfile"(project(":baselineprofile"))
     debugImplementation(compose.uiTooling)
 
+}
+
+baselineProfile {
+    from(project(":baselineprofile"))
+    filter {
+        include("com.valu.valulibrary.**")
+    }
+    saveInSrc = true
+    automaticGenerationDuringBuild = false
 }
 

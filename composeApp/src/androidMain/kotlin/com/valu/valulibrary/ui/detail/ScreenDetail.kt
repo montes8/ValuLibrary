@@ -11,9 +11,8 @@ import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
 import com.valu.uitaycompose.extra.UiTayCToolBar
-import com.valu.uitaycompose.model.UiTayToolBarModel
+import com.valu.uitaycompose.model.UiToolBarModel
 import com.valu.uitaycompose.utils.tay_deep_orange_200
-import com.valu.uitaycompose.utils.tay_deep_orange_300
 import com.valu.valulibrary.component.ItemProduct
 import org.koin.compose.viewmodel.koinViewModel
 
@@ -27,8 +26,10 @@ fun ScreenDetail(id : String,name: String,viewModel: DetailViewModel = koinViewM
 
     Scaffold(
         topBar = {
-            UiTayCToolBar(uiTayText = name, uiTayModifier = UiTayToolBarModel(
-                uiBgColor = tay_deep_orange_200, uiTypeStart = true, uiTypeEnd = false)) {
+            UiTayCToolBar(uiTayText = name, uiTayModifier = UiToolBarModel(
+                uiBgColor = tay_deep_orange_200, uiTypeStart = true, uiTypeEnd = false
+            )
+            ) {
             }
         }, content = { padding ->
             LazyColumn(

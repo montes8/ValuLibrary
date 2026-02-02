@@ -45,15 +45,22 @@ sealed class ScreenVale(
     data class ScreenDetail(val categoryId: String, val name: String): ScreenVale()
 }
 
+@Serializable
+sealed interface TayRoute {
+    @Serializable object Init : TayRoute
+    @Serializable object Product : TayRoute
+    @Serializable object More : TayRoute
+}
+
 sealed class TayDestinations(
-    val route: String,
+    val route: TayRoute,
     val title: String,
     val icon: Int,
     val iconSelected: Int = 0
 ) {
-    data object InitNavScreen: TayDestinations("init_screen","Inicio",R.drawable.ic_nav_init)
-    data object ProductNavScreen: TayDestinations("product_screen","Productos",R.drawable.ic_nav_product)
-    data object MoreNavScreen: TayDestinations("more_screen","categorias",R.drawable.ic_nav_category)
+    data object InitNavScreen: TayDestinations(TayRoute.Init,"Inicio",R.drawable.ic_nav_init)
+    data object ProductNavScreen: TayDestinations(TayRoute.Product,"Productos",R.drawable.ic_nav_product)
+    data object MoreNavScreen: TayDestinations(TayRoute.More,"categorias",R.drawable.ic_nav_category)
 }
 
 @Composable
@@ -61,13 +68,13 @@ fun NavigationNavBarHost(  navController: NavHostController = rememberNavControl
                            navControllerMain: NavHostController = rememberNavController(),paddingValues: PaddingValues
 ) {
 
-    NavHost(navController = navController, startDestination = TayDestinations.InitNavScreen.route,
+    NavHost(navController = navController, startDestination = TayRoute.Init,
         exitTransition = {
             ExitTransition.None
         }) {
-        composable(TayDestinations.InitNavScreen.route) { InitScreen(paddingValues)}
-        composable(TayDestinations.ProductNavScreen.route) { ProductScreen(paddingValues)}
-        composable(TayDestinations.MoreNavScreen.route) {MoresScreen(navControllerMain,paddingValues) }
+        composable<TayRoute.Init> { InitScreen(paddingValues)}
+        composable<TayRoute.Product> { ProductScreen(paddingValues)}
+        composable<TayRoute.More>  {MoresScreen(navControllerMain,paddingValues) }
     }
 }
 
