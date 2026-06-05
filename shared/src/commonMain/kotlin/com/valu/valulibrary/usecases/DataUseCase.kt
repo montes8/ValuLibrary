@@ -37,19 +37,25 @@ class DataUseCase(private val iDataNetwork : IDataNetwork,
     }
     suspend fun getProductService():Boolean{
         val response =  iDataNetwork.loadData()
+        print("----------- /n")
+        print("listados producto ${response.toString()}")
         deleteProduct()
         return insertProduct(response)
     }
 
     suspend fun getParamService():Boolean{
         val response =  iDataNetwork.loadParam()
-        deleteProduct()
+        print("----------- /n")
+        print("listados producto ${response.toString()}")
+        deleteParam()
         return insertParam(response)
     }
 
     suspend fun getCategoryService():Boolean{
         val response =  iDataNetwork.loadCategory()
-        deleteProduct()
+        print("----------- /n")
+        print("listados producto ${response.toString()}")
+        deleteCategory()
         return insertCategory(response)
     }
     suspend fun insertProduct(data : List<Product>) = iProductDataBase.insertContact(data)

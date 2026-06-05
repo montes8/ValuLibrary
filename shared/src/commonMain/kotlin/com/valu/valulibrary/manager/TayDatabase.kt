@@ -8,6 +8,8 @@ import androidx.sqlite.driver.bundled.BundledSQLiteDriver
 import com.valu.valulibrary.repository.db.dao.CategoryDao
 import com.valu.valulibrary.repository.db.dao.ParamDao
 import com.valu.valulibrary.repository.db.dao.ProductDao
+import com.valu.valulibrary.repository.db.entity.CategoryEntity
+import com.valu.valulibrary.repository.db.entity.ParamEntity
 import com.valu.valulibrary.repository.db.entity.ProductEntity
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.IO
@@ -15,7 +17,7 @@ import org.koin.core.module.Module
 
 expect fun configModuleDB(): Module
 
-@Database(entities = [ProductEntity::class], version = 1)
+@Database(entities = [ProductEntity::class, ParamEntity::class, CategoryEntity::class], version = 1)
 @ConstructedBy(AppDatabaseConstructor::class)
 abstract class TayDatabase: RoomDatabase() {
     abstract fun getProductDao(): ProductDao
