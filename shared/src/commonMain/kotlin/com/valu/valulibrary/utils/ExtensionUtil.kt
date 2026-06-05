@@ -1,5 +1,6 @@
 package com.valu.valulibrary.utils
 
+import com.valu.valulibrary.model.Category
 import com.valu.valulibrary.model.Product
 import kotlinx.datetime.Instant
 import kotlinx.serialization.KSerializer
@@ -22,13 +23,22 @@ val jsonWorker = Json {
 }
 fun String.parseListProduct(): List<Product> {
     return try {
-        // Usamos 'jsonWorker' en lugar de la función suelta
         jsonWorker.decodeFromString<List<Product>>(this.trim())
     } catch (e: Exception) {
-        println("Error detallado: ${e.message}")
+        println("Error detallado parseListProduct: ${e.message}")
         emptyList()
     }
 }
+
+fun String.parseListCategory(): List<Category> {
+    return try {
+        jsonWorker.decodeFromString<List<Category>>(this.trim())
+    } catch (e: Exception) {
+        println("Error detallado parseListCategory: ${e.message}")
+        emptyList()
+    }
+}
+
 
 
 internal inline fun <reified R : Any> String.parseJsonTo() =

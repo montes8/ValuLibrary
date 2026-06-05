@@ -44,6 +44,21 @@ class TayService(private val client: HttpClient) {
         return response.bodyAsText()
     }
 
+    suspend fun loadCategory(): String{
+        val response = client.get {
+            pathUrlGet("services/category")
+        }
+        return response.bodyAsText()
+    }
+
+    suspend fun loadParam(): String{
+        val response = client.get {
+            pathUrlGet("services/param")
+        }
+        return response.bodyAsText()
+    }
+
+
     suspend fun postLocation(body : Product): String{
         val response = client.post {
             pathUrlPost("services/product",body)
