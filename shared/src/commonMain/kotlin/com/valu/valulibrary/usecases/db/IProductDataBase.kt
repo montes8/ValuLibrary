@@ -1,5 +1,7 @@
 package com.valu.valulibrary.usecases.db
 
+import com.valu.valulibrary.model.Category
+import com.valu.valulibrary.model.Param
 import com.valu.valulibrary.model.Product
 
 

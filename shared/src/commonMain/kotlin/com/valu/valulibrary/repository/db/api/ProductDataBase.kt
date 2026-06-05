@@ -1,5 +1,7 @@
 package com.valu.valulibrary.repository.db.api
 
+import com.valu.valulibrary.model.Category
+import com.valu.valulibrary.model.Param
 import com.valu.valulibrary.model.Product
 import com.valu.valulibrary.repository.db.dao.ProductDao
 import com.valu.valulibrary.repository.db.entity.ProductEntity

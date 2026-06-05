@@ -5,6 +5,8 @@ import androidx.room.Database
 import androidx.room.RoomDatabase
 import androidx.room.RoomDatabaseConstructor
 import androidx.sqlite.driver.bundled.BundledSQLiteDriver
+import com.valu.valulibrary.repository.db.dao.CategoryDao
+import com.valu.valulibrary.repository.db.dao.ParamDao
 import com.valu.valulibrary.repository.db.dao.ProductDao
 import com.valu.valulibrary.repository.db.entity.ProductEntity
 import kotlinx.coroutines.Dispatchers
@@ -17,6 +19,10 @@ expect fun configModuleDB(): Module
 @ConstructedBy(AppDatabaseConstructor::class)
 abstract class TayDatabase: RoomDatabase() {
     abstract fun getProductDao(): ProductDao
+
+    abstract fun getParamDao(): ParamDao
+
+    abstract fun getCategoryDao(): CategoryDao
 }
 
 // Room compiler generates the `actual` implementations
