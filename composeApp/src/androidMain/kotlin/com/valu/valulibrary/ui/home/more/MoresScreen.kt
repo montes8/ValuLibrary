@@ -21,28 +21,19 @@ import androidx.compose.ui.layout.onGloballyPositioned
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
 import androidx.navigation.NavHostController
+import com.valu.uitaycompose.utils.UI_EMPTY
 import com.valu.uitaycompose.utils.tay_deep_orange_400
 import com.valu.uitaycompose.utils.textGabbiB25
 import com.valu.valulibrary.component.CategoryItem
 import com.valu.valulibrary.component.tayToDp
-import com.valu.valulibrary.model.CategoryModel
+import com.valu.valulibrary.model.TaySessionData
 import com.valu.valulibrary.ui.nav.ScreenVale
 
 @Composable
 fun MoresScreen (navController: NavHostController,paddingValues: PaddingValues) {
     var columnWidthPx by remember { mutableStateOf(0) }
 
-    val items =
-        listOf( CategoryModel(0,"Cuadernos"),
-            CategoryModel(1,"Papeleria"),
-            CategoryModel(2,"Escritura"),
-            CategoryModel(3,"Geometría"),
-            CategoryModel(4,"Arte"),
-            CategoryModel(5,"Adhesivos"),
-            CategoryModel(6,"Materiales"),
-            CategoryModel(7,"Productos"),
-            CategoryModel(8,"Adicionales")
-        )
+    val items = TaySessionData.categories
     Column(modifier = Modifier.fillMaxSize()
         .background(Color.White).padding(paddingValues)
         .onGloballyPositioned { coordinates ->
@@ -60,7 +51,7 @@ fun MoresScreen (navController: NavHostController,paddingValues: PaddingValues) 
             ) {
                 items(items) { util ->
                     CategoryItem(util,columnWidthPx.tayToDp){ value ->
-                        navController.navigate(ScreenVale.ScreenDetail(value.uiId.toString(),value.name))
+                        navController.navigate(ScreenVale.ScreenDetail(value.identifier.toString(),value.name?: UI_EMPTY))
                     }
                 }
             }

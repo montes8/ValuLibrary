@@ -26,7 +26,7 @@ class DataUseCase(private val iDataNetwork : IDataNetwork,
     }
 
     suspend fun updateData(){
-          getProductService()
+        getDataService()
     }
 
     suspend fun getDataService():Boolean{
@@ -37,24 +37,18 @@ class DataUseCase(private val iDataNetwork : IDataNetwork,
     }
     suspend fun getProductService():Boolean{
         val response =  iDataNetwork.loadData()
-        print("----------- /n")
-        print("listados producto ${response.toString()}")
         deleteProduct()
         return insertProduct(response)
     }
 
     suspend fun getParamService():Boolean{
         val response =  iDataNetwork.loadParam()
-        print("----------- /n")
-        print("listados producto ${response.toString()}")
         deleteParam()
         return insertParam(response)
     }
 
     suspend fun getCategoryService():Boolean{
         val response =  iDataNetwork.loadCategory()
-        print("----------- /n")
-        print("listados producto ${response.toString()}")
         deleteCategory()
         return insertCategory(response)
     }

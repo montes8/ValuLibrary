@@ -38,6 +38,7 @@ import com.valu.uitaycompose.utils.textGabbiB20
 import com.valu.uitaycompose.utils.textM12
 import com.valu.uitaycompose.utils.textS14
 import com.valu.valulibrary.R
+import com.valu.valulibrary.model.Category
 import com.valu.valulibrary.model.CategoryModel
 import com.valu.valulibrary.model.Product
 
@@ -103,8 +104,8 @@ fun ItemProduct(model: Product){
 
 @Composable
 fun CategoryItem(
-    category: CategoryModel, width: Dp, marginItem: Dp = 12.dp,
-    onItemClick: (CategoryModel) -> Unit
+    category: Category, width: Dp, marginItem: Dp = 12.dp,
+    onItemClick: (Category) -> Unit
 ) {
     Column( modifier = Modifier
         .background(Color.White).padding(marginItem)) {
@@ -118,14 +119,11 @@ fun CategoryItem(
                     shape = RoundedCornerShape(12.dp),
                     elevation = CardDefaults.cardElevation(defaultElevation = 12.dp)
                 ) {
-                    Image(painter = painterResource(id =
-                        getIconCategory(category.uiId)),
-                        contentDescription = "Descripción de la imagen",
-                        modifier = Modifier.fillMaxSize() .background(Color.White),
-                        contentScale = ContentScale.FillBounds)
+                    UiTayUrlImage(
+                        url = uiTayDriveUrl(category.url?:UI_EMPTY))
                 }
 
-        Text(text = category.name,
+        Text(text = category.name?:UI_EMPTY,
             modifier = Modifier.fillMaxWidth().padding(4.dp)
             ,textAlign = TextAlign.Center,
             style =textGabbiB20, color = tay_orange_400
