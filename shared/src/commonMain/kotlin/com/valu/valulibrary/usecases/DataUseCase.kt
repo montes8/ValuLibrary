@@ -64,6 +64,8 @@ class DataUseCase(private val iDataNetwork : IDataNetwork,
 
     suspend fun deleteCategory() = iCategoryDataBase.deleteCategoryAll()
 
+    suspend fun getProductType(type: String) = iProductDataBase.getProducts(type)
+
     suspend fun getProduct() = iProductDataBase.getProductAll()
 
     suspend fun getParam() = iParamDataBase.getParam()

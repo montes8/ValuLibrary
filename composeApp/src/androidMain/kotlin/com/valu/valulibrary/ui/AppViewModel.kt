@@ -15,6 +15,7 @@ class AppViewModel(private val dataUseCase: DataUseCase):BaseViewModel() {
     private val _eventFlow = MutableSharedFlow<InitUiEvent>()
     val eventFlow = _eventFlow.asSharedFlow()
     val listProducts = mutableStateListOf<Product>()
+    val listProductsImports = mutableStateListOf<Product>()
     fun loadValidateLogin(){
         execute {
             delay(2000)
@@ -27,7 +28,8 @@ class AppViewModel(private val dataUseCase: DataUseCase):BaseViewModel() {
 
     fun loadProduct(){
         execute {
-            val response = dataUseCase.getProduct()
+            val response = dataUseCase.getProductType("0")
+            val responseImports = dataUseCase.getProductType("1")
             listProducts.addAll(response)
 
         }

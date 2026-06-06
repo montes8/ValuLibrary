@@ -18,6 +18,10 @@ class ProductDataBase(private val productDao: ProductDao): IProductDataBase {
         return ProductEntity.toListModel(productDao.getProductsPrincipal())
     }
 
+    override suspend fun getProducts(type: String): List<Product> {
+        return ProductEntity.toListModel(productDao.getProductsByType(type))
+    }
+
     override suspend fun getProductAllCategory(id: String): List<Product> {
         return ProductEntity.toListModel(productDao.getProductsByCategory(id))
     }

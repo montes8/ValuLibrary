@@ -12,6 +12,8 @@ data class Product(
     var description : String?= "",
     @SerialName("category")
     var category : String?= "",
+    @SerialName("type")
+    var type : String?= "",
     @SerialName("price")
     var price : String?= "",
     @SerialName("priceTwo")

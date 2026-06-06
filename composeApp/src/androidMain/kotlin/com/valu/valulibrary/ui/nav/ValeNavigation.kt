@@ -11,6 +11,7 @@ import androidx.navigation.toRoute
 import com.valu.valulibrary.R
 import com.valu.valulibrary.ui.detail.ScreenDetail
 import com.valu.valulibrary.ui.home.ScreenHome
+import com.valu.valulibrary.ui.home.importations.ImportsScreen
 import com.valu.valulibrary.ui.home.init.InitScreen
 import com.valu.valulibrary.ui.home.more.MoresScreen
 import com.valu.valulibrary.ui.home.product.ProductScreen
@@ -59,7 +60,8 @@ sealed class TayDestinations(
     val iconSelected: Int = 0
 ) {
     data object InitNavScreen: TayDestinations(TayRoute.Init,"Inicio",R.drawable.ic_nav_init)
-    data object ProductNavScreen: TayDestinations(TayRoute.Product,"Productos",R.drawable.ic_nav_product)
+    data object ProductNavScreen: TayDestinations(TayRoute.Product,"Utiles",R.drawable.ic_nav_product)
+    data object ImportsScreenNavScreen: TayDestinations(TayRoute.Product,"Importaciones",R.drawable.ic_nav_product)
     data object MoreNavScreen: TayDestinations(TayRoute.More,"categorias",R.drawable.ic_nav_category)
 }
 
@@ -74,6 +76,7 @@ fun NavigationNavBarHost(  navController: NavHostController = rememberNavControl
         }) {
         composable<TayRoute.Init> { InitScreen(paddingValues)}
         composable<TayRoute.Product> { ProductScreen(paddingValues)}
+        composable<TayRoute.Product> { ImportsScreen(paddingValues)}
         composable<TayRoute.More>  {MoresScreen(navControllerMain,paddingValues) }
     }
 }

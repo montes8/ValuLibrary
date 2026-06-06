@@ -21,6 +21,7 @@ fun ScreenHome(navControllerMain: NavHostController) {
     val navigationItems = listOf(
         TayDestinations.InitNavScreen,
         TayDestinations.ProductNavScreen,
+        TayDestinations.ImportsScreenNavScreen,
         TayDestinations.MoreNavScreen,
     )
 

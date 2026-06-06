@@ -18,6 +18,9 @@ interface ProductDao {
     @Query("SELECT * FROM ProductEntity WHERE category = :category")
     suspend fun getProductsByCategory(category: String): List<ProductEntity>
 
+    @Query("SELECT * FROM ProductEntity WHERE type = :type")
+    suspend fun getProductsByType(type: String): List<ProductEntity>
+
     @Query("SELECT * FROM ProductEntity WHERE principal = true")
     suspend fun getProductsPrincipal(): List<ProductEntity>
 
