@@ -21,4 +21,8 @@ open class BaseViewModel( ): ViewModel() {
     suspend fun <T> io(block: suspend () -> T): T = withContext(Dispatchers.IO) {
         block()
     }
+
+    suspend fun <T> default(block: suspend () -> T): T = withContext(Dispatchers.Default) {
+        block()
+    }
 }
