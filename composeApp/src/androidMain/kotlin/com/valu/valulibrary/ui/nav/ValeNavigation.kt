@@ -50,6 +50,7 @@ sealed class ScreenVale(
 sealed interface TayRoute {
     @Serializable object Init : TayRoute
     @Serializable object Product : TayRoute
+    @Serializable object Imports : TayRoute
     @Serializable object More : TayRoute
 }
 
@@ -61,7 +62,7 @@ sealed class TayDestinations(
 ) {
     data object InitNavScreen: TayDestinations(TayRoute.Init,"Inicio",R.drawable.ic_nav_init)
     data object ProductNavScreen: TayDestinations(TayRoute.Product,"Utiles",R.drawable.ic_nav_product)
-    data object ImportsScreenNavScreen: TayDestinations(TayRoute.Product,"Importaciones",R.drawable.ic_nav_product)
+    data object ImportsScreenNavScreen: TayDestinations(TayRoute.Imports,"Import",R.drawable.ic_nav_imports)
     data object MoreNavScreen: TayDestinations(TayRoute.More,"categorias",R.drawable.ic_nav_category)
 }
 
@@ -76,7 +77,7 @@ fun NavigationNavBarHost(  navController: NavHostController = rememberNavControl
         }) {
         composable<TayRoute.Init> { InitScreen(paddingValues)}
         composable<TayRoute.Product> { ProductScreen(paddingValues)}
-        composable<TayRoute.Product> { ImportsScreen(paddingValues)}
+        composable<TayRoute.Imports> { ImportsScreen(paddingValues)}
         composable<TayRoute.More>  {MoresScreen(navControllerMain,paddingValues) }
     }
 }

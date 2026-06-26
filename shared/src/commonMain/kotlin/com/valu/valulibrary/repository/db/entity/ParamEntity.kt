@@ -30,7 +30,7 @@ data class ParamEntity(
                 idMovie = data.idMovie?:"",
                 enableCategory = data.enableCategory?:false,
                 stateImport = data.stateImport?:false,
-                stateUtil = data.stateUtil?:false,
+                stateUtil = data.stateUtil?:true,
                 phone = data.phone?:"",
                 style = data.style?:""
             )

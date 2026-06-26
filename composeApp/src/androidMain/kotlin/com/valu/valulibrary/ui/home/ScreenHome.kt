@@ -11,6 +11,7 @@ import com.valu.uitaycompose.model.UiToolBarModel
 import com.valu.uitaycompose.utils.tay_deep_orange_200
 import com.valu.valulibrary.R
 import com.valu.valulibrary.component.TayCustomBottomBar
+import com.valu.valulibrary.model.TaySessionData
 import com.valu.valulibrary.ui.nav.NavigationNavBarHost
 import com.valu.valulibrary.ui.nav.TayDestinations
 
@@ -18,12 +19,21 @@ import com.valu.valulibrary.ui.nav.TayDestinations
 @Composable
 fun ScreenHome(navControllerMain: NavHostController) {
     val navController = rememberNavController()
-    val navigationItems = listOf(
+    var items = listOf(
         TayDestinations.InitNavScreen,
         TayDestinations.ProductNavScreen,
         TayDestinations.ImportsScreenNavScreen,
         TayDestinations.MoreNavScreen,
     )
+
+    val mutableNavigationItems = items.toMutableList()
+    if(!TaySessionData.enableUtils()){
+        mutableNavigationItems.removeAt(1)
+    }
+
+    if(!TaySessionData.enableImports()){
+        mutableNavigationItems.removeAt(2)
+    }
 
     Scaffold(
         topBar = {
@@ -35,7 +45,7 @@ fun ScreenHome(navControllerMain: NavHostController) {
         },
         bottomBar = {
             TayCustomBottomBar(    navController
-                ,navigationItems)
+                ,mutableNavigationItems)
 
         }, content = { paddingValues ->
             NavigationNavBarHost(navController,navControllerMain,paddingValues)

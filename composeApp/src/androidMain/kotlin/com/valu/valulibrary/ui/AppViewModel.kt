@@ -16,30 +16,38 @@ class AppViewModel(private val dataUseCase: DataUseCase):BaseViewModel() {
     val eventFlow = _eventFlow.asSharedFlow()
     val listProducts = mutableStateListOf<Product>()
     val listProductsImports = mutableStateListOf<Product>()
-    fun loadValidateLogin(){
+    fun loadValidateLogin() {
         execute {
-            delay(2000)
-            val response = dataUseCase.loadData()
-            TaySessionData.categories = dataUseCase.getCategory()
-            TaySessionData.param = dataUseCase.getParam()
+            val response = io {
+                delay(2000)
+                val res = dataUseCase.loadData()
+                TaySessionData.categories = dataUseCase.getCategory()
+                TaySessionData.param = dataUseCase.getParam()
+                res
+            }
             _eventFlow.emit(InitUiEvent.NavigateToNext())
         }
     }
 
+
     fun loadProduct(){
         execute {
-            val response = dataUseCase.getProductType("0")
-            val responseImports = dataUseCase.getProductType("1")
+            val (response, responseImports) = io {
+                val response = dataUseCase.getProductType("0")
+                val responseImports = dataUseCase.getProductType("1")
+                Pair(response, responseImports)
+            }
             listProducts.addAll(response)
-
+            listProductsImports.addAll(responseImports)
         }
     }
 
     fun updateProduct(){
         execute {
-             dataUseCase.updateData()
+            io {
+                dataUseCase.updateData()
+            }
         }
     }
-
 
 }

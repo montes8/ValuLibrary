@@ -2,11 +2,11 @@
   "formatVersion": 1,
   "database": {
     "version": 1,
-    "identityHash": "d7a6b126fb4ce59903b9be7308a69a9f",
+    "identityHash": "6df9867244aa828638126adf55f42c5b",
     "entities": [
       {
         "tableName": "ProductEntity",
-        "createSql": "CREATE TABLE IF NOT EXISTS `${TABLE_NAME}` (`id` INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL, `uid` TEXT NOT NULL, `name` TEXT NOT NULL, `description` TEXT NOT NULL, `category` TEXT NOT NULL, `price` TEXT NOT NULL, `priceTwo` TEXT NOT NULL, `state` INTEGER NOT NULL, `url` TEXT NOT NULL, `phone` TEXT NOT NULL, `principal` INTEGER NOT NULL, `admin` INTEGER NOT NULL, `countryCode` TEXT NOT NULL, `district` TEXT NOT NULL, `longitude` TEXT NOT NULL, `latitude` TEXT NOT NULL, `limitDistance` TEXT NOT NULL, `banner` INTEGER NOT NULL, `click` INTEGER NOT NULL, `sellerClient` TEXT NOT NULL)",
+        "createSql": "CREATE TABLE IF NOT EXISTS `${TABLE_NAME}` (`id` INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL, `uid` TEXT NOT NULL, `name` TEXT NOT NULL, `description` TEXT NOT NULL, `category` TEXT NOT NULL, `type` TEXT NOT NULL, `price` TEXT NOT NULL, `priceTwo` TEXT NOT NULL, `state` INTEGER NOT NULL, `url` TEXT NOT NULL, `phone` TEXT NOT NULL, `principal` INTEGER NOT NULL, `admin` INTEGER NOT NULL, `countryCode` TEXT NOT NULL, `district` TEXT NOT NULL, `longitude` TEXT NOT NULL, `latitude` TEXT NOT NULL, `limitDistance` TEXT NOT NULL, `banner` INTEGER NOT NULL, `click` INTEGER NOT NULL, `sellerClient` TEXT NOT NULL)",
         "fields": [
           {
             "fieldPath": "id",
@@ -35,6 +35,12 @@
           {
             "fieldPath": "category",
             "columnName": "category",
+            "affinity": "TEXT",
+            "notNull": true
+          },
+          {
+            "fieldPath": "type",
+            "columnName": "type",
             "affinity": "TEXT",
             "notNull": true
           },
@@ -259,7 +265,7 @@
     ],
     "setupQueries": [
       "CREATE TABLE IF NOT EXISTS room_master_table (id INTEGER PRIMARY KEY,identity_hash TEXT)",
-      "INSERT OR REPLACE INTO room_master_table (id,identity_hash) VALUES(42, 'd7a6b126fb4ce59903b9be7308a69a9f')"
+      "INSERT OR REPLACE INTO room_master_table (id,identity_hash) VALUES(42, '6df9867244aa828638126adf55f42c5b')"
     ]
   }
 }

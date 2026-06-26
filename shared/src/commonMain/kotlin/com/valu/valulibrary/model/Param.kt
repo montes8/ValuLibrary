@@ -18,10 +18,10 @@ data class Param(
     @SerialName("stateImport")
     var stateImport : Boolean?= false,
     @SerialName("stateUtil")
-    var stateUtil : Boolean?= false,
+    var stateUtil : Boolean?= true,
     @SerialName("phone")
     var phone : String?= "",
     @SerialName("style")
-    var style : String?= ""
+    var style : String?= "0"
 
 )
